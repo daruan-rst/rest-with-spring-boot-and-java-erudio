@@ -1,5 +1,6 @@
 package br.com.eurdio;
 
+import br.com.eurdio.exceptions.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -15,7 +16,7 @@ public class MathController {
             @PathVariable(value = "numberOne") String numberOne,
             @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)){
-            throw new Exception();
+            throw new UnsupportedMathOperationException("Please set a numeric value! ");
         }
         return convertToDouble(numberOne) + convertToDouble(numberTwo)  ;
     }
