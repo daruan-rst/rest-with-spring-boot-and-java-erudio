@@ -4,6 +4,7 @@ import br.com.eurdio.data.vO.v1.PersonVO;
 import br.com.eurdio.data.vO.v2.PersonVOV2;
 import br.com.eurdio.exceptions.ResourceNotFoundException;
 import br.com.eurdio.mapper.Mapper;
+import br.com.eurdio.mapper.custom.PersonMapper;
 import br.com.eurdio.model.Person;
 import br.com.eurdio.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class PersonServices {
 
     @Autowired
     PersonRepository repository;
+
+    @Autowired
+    PersonMapper mapper;
 
     public List<PersonVO> findAll(){
         logger.info("Finding one person!");
@@ -47,8 +51,8 @@ public class PersonServices {
     public PersonVOV2 createV2(PersonVOV2 person){
 
         logger.info("Creating one person with V2!");
-        var entity = Mapper.parseObject(person, Person.class);
-        var vo = Mapper.parseObject(repository.save(entity), PersonVOV2.class);
+        var entity = mapper.convertVoToEntity(person);
+        var vo = mapper.convertEntityToVO(entity);
 
         return vo;
     }
