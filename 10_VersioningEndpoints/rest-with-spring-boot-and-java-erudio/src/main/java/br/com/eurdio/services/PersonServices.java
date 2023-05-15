@@ -52,7 +52,7 @@ public class PersonServices {
 
         logger.info("Creating one person with V2!");
         var entity = mapper.convertVoToEntity(person);
-        var vo = mapper.convertEntityToVO(entity);
+        var vo = mapper.convertEntityToVO(repository.save(entity));
 
         return vo;
     }
