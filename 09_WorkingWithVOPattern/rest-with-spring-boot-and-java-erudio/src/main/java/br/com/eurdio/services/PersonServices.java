@@ -2,6 +2,8 @@ package br.com.eurdio.services;
 
 import br.com.eurdio.data.vO.v1.PersonVO;
 import br.com.eurdio.exceptions.ResourceNotFoundException;
+import br.com.eurdio.mapper.DozerMapper;
+import br.com.eurdio.model.Person;
 import br.com.eurdio.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,30 +22,32 @@ public class PersonServices {
     public List<PersonVO> findAll(){
         logger.info("Finding one person!");
 
-        return repository.findAll();
+        return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
     }
 
     public PersonVO findById(Long id){
         logger.info("Finding one person!");
 
-
-
-        return repository.findById(id)
+        var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+
+        return DozerMapper.parseObject(entity, PersonVO.class);
     }
 
     public PersonVO create(PersonVO person){
 
         logger.info("Creating one person!");
+        var entity = DozerMapper.parseObject(person, Person.class);
+        var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
 
-        return repository.save(person);
+        return vo;
     }
 
     public PersonVO update(PersonVO person){
 
         logger.info("Updating one person!");
 
-        PersonVO entity = repository.findById(person.getId())
+        Person entity = repository.findById(person.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 
         entity.setFirstName(person.getFirstName());
@@ -51,13 +55,14 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return repository.save(entity);
+        var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        return vo;
     }
 
     public void delete(Long id){
         logger.info("Deleting one person!");
 
-        PersonVO entity = repository.findById(id)
+        var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         repository.delete(entity);
     }
