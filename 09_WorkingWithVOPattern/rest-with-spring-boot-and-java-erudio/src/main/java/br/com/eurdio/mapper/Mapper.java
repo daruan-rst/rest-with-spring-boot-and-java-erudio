@@ -1,15 +1,20 @@
 package br.com.eurdio.mapper;
 
-import br.com.eurdio.data.vO.v1.PersonVO;
-import com.github.dozermapper.core.DozerBeanMapperBuilder;
-import com.github.dozermapper.core.Mapper;
+//import br.com.eurdio.data.vO.v1.PersonVO;
+//import com.github.dozermapper.core.DozerBeanMapperBuilder;
+//import com.github.dozermapper.core.Mapper;
+
+
+
+import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DozerMapper {
+public class Mapper {
 
-    private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+//    private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+    private static ModelMapper mapper = new ModelMapper();
 
     public static <O, D> D parseObject(O origin, Class<D> destination){
         return mapper.map(origin, destination);
