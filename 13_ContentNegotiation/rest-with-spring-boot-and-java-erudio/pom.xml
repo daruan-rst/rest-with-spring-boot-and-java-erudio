@@ -17,6 +17,7 @@
 		<java.version>17</java.version>
 		<dozer.version>6.4.0</dozer.version>
 		<model.mapper.version>3.1.1</model.mapper.version>
+		<mysql.version>8.0.32</mysql.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -31,7 +32,12 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.32</version>
+			<version>${mysql.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
 
 		<dependency>
