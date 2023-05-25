@@ -22,10 +22,20 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
-    public List<PersonVO> findAll(){
+    public List<PersonVO> findAll() {
         logger.info("Finding one person!");
 
-        return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+        var persons =  DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+        persons
+            .stream()
+            .forEach(p -> {
+                try {
+                    p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        return persons;
     }
 
     public PersonVO findById(Long id) throws Exception {
@@ -34,21 +44,21 @@ public class PersonServices {
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 
-        PersonVO vo = DozerMapper.parseObject(entity, PersonVO.class);
+        var vo = DozerMapper.parseObject(entity, PersonVO.class);
         vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
         return vo;
     }
 
-    public PersonVO create(PersonVO person){
+    public PersonVO create(PersonVO person) throws Exception {
 
         logger.info("Creating one person!");
         var entity = DozerMapper.parseObject(person, Person.class);
         var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
-
+        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
         return vo;
     }
 
-    public PersonVO update(PersonVO person){
+    public PersonVO update(PersonVO person) throws Exception {
 
         logger.info("Updating one person!");
 
@@ -61,6 +71,7 @@ public class PersonServices {
         entity.setGender(person.getGender());
 
         var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
         return vo;
     }
 
