@@ -2,6 +2,7 @@ package br.com.eurdio.services;
 
 import br.com.eurdio.controller.PersonController;
 import br.com.eurdio.data.vO.v1.PersonVO;
+import br.com.eurdio.exceptions.RequiredObjectIsNullException;
 import br.com.eurdio.exceptions.ResourceNotFoundException;
 import br.com.eurdio.mapper.DozerMapper;
 import br.com.eurdio.model.Person;
@@ -51,6 +52,9 @@ public class PersonServices {
 
     public PersonVO create(PersonVO person) throws Exception {
 
+        if (person == null){
+            throw new RequiredObjectIsNullException();
+        }
         logger.info("Creating one person!");
         var entity = DozerMapper.parseObject(person, Person.class);
         var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
@@ -59,6 +63,10 @@ public class PersonServices {
     }
 
     public PersonVO update(PersonVO person) throws Exception {
+
+        if (person == null){
+            throw new RequiredObjectIsNullException();
+        }
 
         logger.info("Updating one person!");
 

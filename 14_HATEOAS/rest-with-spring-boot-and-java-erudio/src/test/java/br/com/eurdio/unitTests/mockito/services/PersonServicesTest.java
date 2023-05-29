@@ -1,6 +1,7 @@
 package br.com.eurdio.unitTests.mockito.services;
 
 import br.com.eurdio.data.vO.v1.PersonVO;
+import br.com.eurdio.exceptions.RequiredObjectIsNullException;
 import br.com.eurdio.model.Person;
 import br.com.eurdio.repository.PersonRepository;
 import br.com.eurdio.services.PersonServices;
@@ -84,6 +85,19 @@ class PersonServicesTest {
     }
 
     @Test
+    void createWithNullPerson() throws Exception {
+        Exception exception = assertThrows(RequiredObjectIsNullException.class, () ->{
+            service.create(null);
+        });
+
+        String expectedMessage = "It is not allowed to persist a null object! ";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
+    @Test
     void update() throws Exception {
         Person entity = input.mockEntity(1);
         entity.setId(1L);
@@ -107,6 +121,19 @@ class PersonServicesTest {
         assertEquals("First Name Test1", result.getFirstName());
         assertEquals("Last Name Test1", result.getLastName());
         assertEquals("Female", result.getGender());
+    }
+
+    @Test
+    void updateWithNullPerson() throws Exception {
+        Exception exception = assertThrows(RequiredObjectIsNullException.class, () ->{
+            service.update(null);
+        });
+
+        String expectedMessage = "It is not allowed to persist a null object! ";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
     }
 
     @Test
