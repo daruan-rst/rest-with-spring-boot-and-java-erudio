@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@Table(name = "books")
 @JsonPropertyOrder({"id", "author", "title", "price", "launchDate"})
 public class Book extends RepresentationModel<Book> implements Serializable {
 
@@ -20,16 +21,17 @@ public class Book extends RepresentationModel<Book> implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "author")
+    @Column(name = "author", length = 80)
     private String author;
 
     @Column(name = "launch_date")
+    @Temporal(TemporalType.DATE)
     private LocalDateTime  launchDate;
 
     @Column(name  = "price")
     private BigDecimal price;
 
-    @Column(name  = "title")
+    @Column(name  = "title", length = 250)
     private String title;
 
     public Book(long id, String author, LocalDateTime launchDate, BigDecimal price, String title) {
