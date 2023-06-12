@@ -55,7 +55,7 @@ public class BookService {
         book.setPrice(oldBook.getPrice());
         book.setLaunchDate(oldBook.getLaunchDate());
         book.setAuthor(oldBook.getAuthor());
-        bookRepository.save(book);
+        book = bookRepository.save(book);
         book.add(linkTo(methodOn(BookController.class).findById(id)).withSelfRel());
         return book;
     }

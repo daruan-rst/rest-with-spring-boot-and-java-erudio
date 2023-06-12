@@ -42,6 +42,9 @@ public class Book extends RepresentationModel<Book> implements Serializable {
         this.title = title;
     }
 
+    public Book() {
+    }
+
     public long getId() {
         return id;
     }
