@@ -7,7 +7,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -26,7 +26,7 @@ public class Book extends RepresentationModel<Book> implements Serializable {
 
     @Column(name = "launch_date")
     @Temporal(TemporalType.DATE)
-    private LocalDateTime  launchDate;
+    private Date launchDate;
 
     @Column(name  = "price")
     private BigDecimal price;
@@ -34,7 +34,7 @@ public class Book extends RepresentationModel<Book> implements Serializable {
     @Column(name  = "title", length = 250)
     private String title;
 
-    public Book(long id, String author, LocalDateTime launchDate, BigDecimal price, String title) {
+    public Book(long id, String author, Date launchDate, BigDecimal price, String title) {
         this.id = id;
         this.author = author;
         this.launchDate = launchDate;
@@ -61,11 +61,11 @@ public class Book extends RepresentationModel<Book> implements Serializable {
         this.author = author;
     }
 
-    public LocalDateTime getLaunchDate() {
+    public Date getLaunchDate() {
         return launchDate;
     }
 
-    public void setLaunchDate(LocalDateTime launchDate) {
+    public void setLaunchDate(Date launchDate) {
         this.launchDate = launchDate;
     }
 

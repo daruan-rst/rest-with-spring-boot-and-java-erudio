@@ -3,6 +3,7 @@ package br.com.eurdio.unitTests.mapper.mocks;
 import br.com.eurdio.model.Book;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class MockBook {
         book.setAuthor("Ernest Hemingway");
         book.setTitle("For Whom The Bell Toes");
         book.setPrice(new BigDecimal(id*10));
-        book.setLaunchDate(LocalDateTime.of(1940, 10, 21,12,0));
+        book.setLaunchDate(Date.valueOf(LocalDateTime.of(1940, 10, 21,12,0).toLocalDate()));
         return book;
     }
 }
