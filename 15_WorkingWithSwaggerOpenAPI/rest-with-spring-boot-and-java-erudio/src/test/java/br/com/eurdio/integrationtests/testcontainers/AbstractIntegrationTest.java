@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 @ContextConfiguration(initializers = AbstractIntegrationTest.Initializer.class)
 public class AbstractIntegrationTest {
-    public class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+    static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
         static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.29");
 
         private static void startContainers(){
@@ -33,10 +33,10 @@ public class AbstractIntegrationTest {
         public void initialize(ConfigurableApplicationContext applicationContext) {
             startContainers();
             ConfigurableEnvironment environment = applicationContext.getEnvironment();
-            MapPropertySource testContainers = new MapPropertySource(
+            MapPropertySource testcontainers = new MapPropertySource(
                     "testcontainers",
                     (Map) createConnectionConfiguration());
-            environment.getPropertySources().addFirst(testContainers);
+            environment.getPropertySources().addFirst(testcontainers);
         }
 
 
