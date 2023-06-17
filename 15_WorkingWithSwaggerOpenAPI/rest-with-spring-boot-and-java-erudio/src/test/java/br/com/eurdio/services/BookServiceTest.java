@@ -52,7 +52,7 @@ class BookServiceTest {
         Assertions.assertEquals("For Whom The Bell Toes",firstBook.getTitle());
         Assertions.assertEquals("Ernest Hemingway",firstBook.getAuthor());
         Assertions.assertEquals(BigDecimal.valueOf(10L),firstBook.getPrice());
-        Assertions.assertEquals(LocalDateTime.of(1940, 10, 21,12,0),firstBook.getLaunchDate());
+        Assertions.assertEquals(Date.valueOf(LocalDateTime.of(1940, 10, 21,12,0).toLocalDate()),firstBook.getLaunchDate());
     }
 
     @Test
@@ -63,7 +63,7 @@ class BookServiceTest {
         Assertions.assertEquals("For Whom The Bell Toes",book.getTitle());
         Assertions.assertEquals("Ernest Hemingway",book.getAuthor());
         Assertions.assertEquals(BigDecimal.valueOf(10L),book.getPrice());
-        Assertions.assertEquals(LocalDateTime.of(1940, 10, 21,12,0),book.getLaunchDate());
+        Assertions.assertEquals(Date.valueOf(LocalDateTime.of(1940, 10, 21,12,0).toLocalDate()),book.getLaunchDate());
     }
 
     @Test
@@ -75,7 +75,7 @@ class BookServiceTest {
         Assertions.assertEquals("For Whom The Bell Toes",book.getTitle());
         Assertions.assertEquals("Ernest Hemingway",book.getAuthor());
         Assertions.assertEquals(BigDecimal.valueOf(10L),book.getPrice());
-        Assertions.assertEquals(LocalDateTime.of(1940, 10, 21,12,0),book.getLaunchDate());
+        Assertions.assertEquals(Date.valueOf(LocalDateTime.of(1940, 10, 21,12,0).toLocalDate()),book.getLaunchDate());
     }
 
     @Test
@@ -92,7 +92,7 @@ class BookServiceTest {
         Assertions.assertEquals("Faust: eine Tragödie",book.getTitle());
         Assertions.assertEquals("Wolfgang von Goethe",book.getAuthor());
         Assertions.assertEquals(BigDecimal.valueOf(30L),book.getPrice());
-//        Assertions.assertEquals(LocalDateTime.of(1806, 10, 21,12,0),book.getLaunchDate());
+        Assertions.assertEquals(Date.valueOf(LocalDateTime.of(1806, 10, 21,12,0).toLocalDate()),book.getLaunchDate());
     }
 
     @Test
