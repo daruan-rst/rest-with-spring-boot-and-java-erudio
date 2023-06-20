@@ -14,6 +14,8 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static br.com.eurdio.configs.TestConfigs.ORIGIN_ERUDIO;
+import static br.com.eurdio.configs.TestConfigs.ORIGIN_SEMERU;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,7 +44,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         mockPerson();
 
         specification = new RequestSpecBuilder()
-                                    .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, "https://erudio.com.br")
+                                    .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                                     .setBasePath("api/person/v1")
                                     .setPort(TestConfigs.SERVER_PORT)
                                         .addFilter(new RequestLoggingFilter(LogDetail.ALL))
@@ -76,6 +78,107 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
             assertEquals("New York City, New York, US", createdPerson.getAddress());
             assertEquals("Male"  , createdPerson.getGender());
 
+
+    }
+
+    @Test
+    @Order(2)
+    public void testCreate_withWrongOrigin() throws JsonProcessingException {
+        mockPerson();
+
+        specification = new RequestSpecBuilder()
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_SEMERU)
+                .setBasePath("api/person/v1")
+                .setPort(TestConfigs.SERVER_PORT)
+                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
+                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
+                .build();
+
+        var content = given()
+                .spec(specification)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .body(person)
+                .when()
+                .post()
+                .then()
+                .statusCode(403)
+                .extract()
+                .body()
+                .asString();
+
+
+        assertNotNull(content);
+        assertEquals("Invalid CORS request", content);
+    }
+
+    @Test
+    @Order(3)
+    public void testFindById() throws JsonProcessingException {
+
+        specification = new RequestSpecBuilder()
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .setBasePath("api/person/v1/")
+                .setPort(TestConfigs.SERVER_PORT)
+                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
+                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
+                .build();
+
+        var content = given()
+                .spec(specification)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .pathParam("id", person.getId())
+                .when()
+                .get("{id}")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
+        person = persistedPerson;
+
+        assertNotNull(persistedPerson);
+        assertTrue(persistedPerson.getId() > 0);
+        assertNotNull(persistedPerson.getFirstName());
+        assertNotNull(persistedPerson.getLastName());
+        assertNotNull(persistedPerson.getAddress());
+        assertNotNull(persistedPerson.getGender());
+
+        assertEquals("Richard" , persistedPerson.getFirstName());
+        assertEquals("Stallman" , persistedPerson.getLastName());
+        assertEquals("New York City, New York, US", persistedPerson.getAddress());
+        assertEquals("Male"  , persistedPerson.getGender());
+
+
+    }
+
+    @Test
+    @Order(4)
+    public void testFindById_withWrongOrigin() throws JsonProcessingException {
+
+        specification = new RequestSpecBuilder()
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_SEMERU)
+                .setBasePath("api/person/v1/")
+                .setPort(TestConfigs.SERVER_PORT)
+                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
+                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
+                .build();
+
+        var content = given()
+                .spec(specification)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .pathParam("id", person.getId())
+                .when()
+                .get("{id}")
+                .then()
+                .statusCode(403)
+                .extract()
+                .body()
+                .asString();
+
+            assertNotNull(content);
+            assertEquals("Invalid CORS request", content);
 
     }
 
