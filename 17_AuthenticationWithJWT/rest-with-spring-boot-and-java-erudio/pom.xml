@@ -20,6 +20,8 @@
 		<testcontainers.version>1.16.3</testcontainers.version>
 		<model.mapper.version>3.1.1</model.mapper.version>
 		<mysql.version>8.0.32</mysql.version>
+		<rest-assured.version>4.5.0</rest-assured.version>
+		<java-jwt.version>3.18.3</java-jwt.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -29,6 +31,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+<!--			<version>${java-jwt.version}</version>-->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.hateoas</groupId>
@@ -94,6 +101,7 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
+			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 		</dependency>
 
