@@ -1,6 +1,7 @@
 package br.com.eurdio.exceptions.handler;
 
 import br.com.eurdio.exceptions.ExceptionResponse;
+import br.com.eurdio.exceptions.InvalidJwtAuthenticationException;
 import br.com.eurdio.exceptions.RequiredObjectIsNullException;
 import br.com.eurdio.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,18 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
     @ExceptionHandler(RequiredObjectIsNullException.class)
     public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(
+            Exception ex, WebRequest request){
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationException(
             Exception ex, WebRequest request){
 
         ExceptionResponse exceptionResponse = new ExceptionResponse(
