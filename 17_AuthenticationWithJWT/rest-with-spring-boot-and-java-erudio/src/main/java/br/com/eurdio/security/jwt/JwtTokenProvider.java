@@ -1,4 +1,4 @@
-package br.com.eurdio.securityJwt;
+package br.com.eurdio.security.jwt;
 
 import br.com.eurdio.data.vO.v1.security.TokenVO;
 import br.com.eurdio.exceptions.InvalidJwtAuthenticationException;
