@@ -37,7 +37,7 @@ public class User implements UserDetails, Serializable {
     @Column(name = "credentials_non_expired")
     private boolean credentialsNonExpired;
 
-    @Column(name = "credentials_non_expired")
+    @Column(name = "enabled")
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
