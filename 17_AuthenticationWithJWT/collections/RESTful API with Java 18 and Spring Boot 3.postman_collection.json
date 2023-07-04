@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "470d6d1e-1155-4352-9008-f98e51185bf4",
+		"_postman_id": "3a6ddf7e-7c9c-43c7-bb2f-42b7c37a80cf",
 		"name": "RESTful API with Java 18 and Spring Boot 3",
 		"description": "Some Description about your API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -34,7 +34,7 @@
 											"variable": [
 												{
 													"key": "id",
-													"value": "31823802",
+													"value": "-19861197",
 													"description": "(Required) "
 												}
 											]
@@ -75,7 +75,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n \"id\": 91728439,\n \"firstName\": \"deserunt et ullamco commodo\",\n \"lastName\": \"esse sunt cupidatat\",\n \"address\": \"officia\",\n \"gender\": \"fugiat culpa\",\n \"_links\": {}\n}"
+											"body": "{\n \"id\": -44551089,\n \"firstName\": \"adipisicing d\",\n \"lastName\": \"ad sint mollit\",\n \"address\": \"et Duis\",\n \"gender\": \"anim\",\n \"_links\": {}\n}"
 										},
 										{
 											"name": "No Content",
@@ -273,7 +273,7 @@
 											"variable": [
 												{
 													"key": "id",
-													"value": "31823802",
+													"value": "-19861197",
 													"description": "(Required) "
 												}
 											]
@@ -506,7 +506,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "[\n {\n  \"id\": 96853486,\n  \"firstName\": \"veniam deserunt aliquip in in\",\n  \"lastName\": \"incididunt tempor ut aliqua\",\n  \"address\": \"eu dolo\",\n  \"gender\": \"incididunt consectetur\",\n  \"_links\": {}\n },\n {\n  \"id\": 12882014,\n  \"firstName\": \"nostrud ut labore tempor\",\n  \"lastName\": \"ipsum Duis\",\n  \"address\": \"voluptate fugiat\",\n  \"gender\": \"ad esse nostrud deserunt in\",\n  \"_links\": {}\n }\n]"
+									"body": "[\n {\n  \"id\": -48590870,\n  \"firstName\": \"proident veniam\",\n  \"lastName\": \"ea eu\",\n  \"address\": \"magna nisi exercitation\",\n  \"gender\": \"ex elit ad\",\n  \"_links\": {}\n },\n {\n  \"id\": 27175555,\n  \"firstName\": \"anim ess\",\n  \"lastName\": \"elit pariatur amet ex\",\n  \"address\": \"consectetur labore\",\n  \"gender\": \"reprehenderit aute nisi exercitation\",\n  \"_links\": {}\n }\n]"
 								},
 								{
 									"name": "Bad Request",
@@ -638,7 +638,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+									"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/api/person/v1",
@@ -661,7 +661,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/person/v1",
@@ -685,7 +685,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n \"id\": 91728439,\n \"firstName\": \"deserunt et ullamco commodo\",\n \"lastName\": \"esse sunt cupidatat\",\n \"address\": \"officia\",\n \"gender\": \"fugiat culpa\",\n \"_links\": {}\n}"
+									"body": "{\n \"id\": -44551089,\n \"firstName\": \"adipisicing d\",\n \"lastName\": \"ad sint mollit\",\n \"address\": \"et Duis\",\n \"gender\": \"anim\",\n \"_links\": {}\n}"
 								},
 								{
 									"name": "Bad Request",
@@ -694,7 +694,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/person/v1",
@@ -727,7 +727,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/person/v1",
@@ -760,7 +760,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/person/v1",
@@ -793,7 +793,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/person/v1",
@@ -833,7 +833,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+									"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/api/person/v1",
@@ -856,7 +856,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/person/v1",
@@ -880,7 +880,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n \"id\": 91728439,\n \"firstName\": \"deserunt et ullamco commodo\",\n \"lastName\": \"esse sunt cupidatat\",\n \"address\": \"officia\",\n \"gender\": \"fugiat culpa\",\n \"_links\": {}\n}"
+									"body": "{\n \"id\": -44551089,\n \"firstName\": \"adipisicing d\",\n \"lastName\": \"ad sint mollit\",\n \"address\": \"et Duis\",\n \"gender\": \"anim\",\n \"_links\": {}\n}"
 								},
 								{
 									"name": "Bad Request",
@@ -889,7 +889,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/person/v1",
@@ -922,7 +922,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/person/v1",
@@ -955,7 +955,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/person/v1",
@@ -988,7 +988,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 91728439,\n    \"firstName\": \"deserunt et ullamco commodo\",\n    \"lastName\": \"esse sunt cupidatat\",\n    \"address\": \"officia\",\n    \"gender\": \"fugiat culpa\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -44551089,\n    \"firstName\": \"adipisicing d\",\n    \"lastName\": \"ad sint mollit\",\n    \"address\": \"et Duis\",\n    \"gender\": \"anim\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/person/v1",
@@ -1067,7 +1067,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "[\n {\n  \"id\": 75633233,\n  \"author\": \"con\",\n  \"title\": \"et incididunt laboris\",\n  \"price\": -40679619.427926816,\n  \"launchDate\": \"1960-01-30T03:45:40.704Z\",\n  \"_links\": {}\n },\n {\n  \"id\": 5618381,\n  \"author\": \"eiusmod ea cillum do adipisicing\",\n  \"title\": \"et consectetur exercitation\",\n  \"price\": 12089884.80412066,\n  \"launchDate\": \"1973-11-22T21:34:56.074Z\",\n  \"_links\": {}\n }\n]"
+									"body": "[\n {\n  \"id\": 80957104,\n  \"author\": \"voluptate veniam in pr\",\n  \"title\": \"dolo\",\n  \"price\": 53565938.1623767,\n  \"launchDate\": \"2012-04-04T13:36:42.921Z\",\n  \"_links\": {}\n },\n {\n  \"id\": 24939677,\n  \"author\": \"aliqua Lorem magna\",\n  \"title\": \"ipsum dolore occaecat\",\n  \"price\": 36758314.16905838,\n  \"launchDate\": \"1948-04-08T02:32:19.076Z\",\n  \"_links\": {}\n }\n]"
 								},
 								{
 									"name": "Bad Request",
@@ -1199,7 +1199,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+									"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/api/book/v1",
@@ -1210,6 +1210,13 @@
 										"api",
 										"book",
 										"v1"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "-19861197",
+											"description": "(Required) "
+										}
 									]
 								},
 								"description": "Updates a book"
@@ -1222,7 +1229,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1246,7 +1253,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n \"id\": 33177515,\n \"author\": \"dolore consectetur velit aliqua\",\n \"title\": \"mollit consectetur nostrud ei\",\n \"price\": 24705772.520862147,\n \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n \"_links\": {}\n}"
+									"body": "{\n \"id\": -86244647,\n \"author\": \"laboris in\",\n \"title\": \"laboris\",\n \"price\": 11299591.742236272,\n \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n \"_links\": {}\n}"
 								},
 								{
 									"name": "BadRequest",
@@ -1255,7 +1262,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1288,7 +1295,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1321,7 +1328,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1354,7 +1361,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1394,7 +1401,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+									"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/api/book/v1",
@@ -1417,7 +1424,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1441,7 +1448,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n \"id\": 33177515,\n \"author\": \"dolore consectetur velit aliqua\",\n \"title\": \"mollit consectetur nostrud ei\",\n \"price\": 24705772.520862147,\n \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n \"_links\": {}\n}"
+									"body": "{\n \"id\": -86244647,\n \"author\": \"laboris in\",\n \"title\": \"laboris\",\n \"price\": 11299591.742236272,\n \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n \"_links\": {}\n}"
 								},
 								{
 									"name": "BadRequest",
@@ -1450,7 +1457,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1483,7 +1490,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1516,7 +1523,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1549,7 +1556,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1589,7 +1596,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+									"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/api/book/v1",
@@ -1600,6 +1607,13 @@
 										"api",
 										"book",
 										"v1"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "-19861197",
+											"description": "(Required) "
+										}
 									]
 								},
 								"description": "Deletes a book"
@@ -1612,7 +1626,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1636,7 +1650,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n \"id\": 33177515,\n \"author\": \"dolore consectetur velit aliqua\",\n \"title\": \"mollit consectetur nostrud ei\",\n \"price\": 24705772.520862147,\n \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n \"_links\": {}\n}"
+									"body": "{\n \"id\": -86244647,\n \"author\": \"laboris in\",\n \"title\": \"laboris\",\n \"price\": 11299591.742236272,\n \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n \"_links\": {}\n}"
 								},
 								{
 									"name": "BadRequest",
@@ -1645,7 +1659,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1678,7 +1692,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1711,7 +1725,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1744,7 +1758,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"id\": 33177515,\n    \"author\": \"dolore consectetur velit aliqua\",\n    \"title\": \"mollit consectetur nostrud ei\",\n    \"price\": 24705772.520862147,\n    \"launchDate\": \"2021-05-27T00:03:51.379Z\",\n    \"_links\": {}\n}"
+											"raw": "{\n    \"id\": -86244647,\n    \"author\": \"laboris in\",\n    \"title\": \"laboris\",\n    \"price\": 11299591.742236272,\n    \"launchDate\": \"2020-11-23T19:10:11.914Z\",\n    \"_links\": {}\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/api/book/v1",
@@ -1791,7 +1805,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "31823802",
+											"value": "-19861197",
 											"description": "(Required) "
 										}
 									]
@@ -1832,7 +1846,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "[\n {\n  \"id\": 75633233,\n  \"author\": \"con\",\n  \"title\": \"et incididunt laboris\",\n  \"price\": -40679619.427926816,\n  \"launchDate\": \"1960-01-30T03:45:40.704Z\",\n  \"_links\": {}\n },\n {\n  \"id\": 5618381,\n  \"author\": \"eiusmod ea cillum do adipisicing\",\n  \"title\": \"et consectetur exercitation\",\n  \"price\": 12089884.80412066,\n  \"launchDate\": \"1973-11-22T21:34:56.074Z\",\n  \"_links\": {}\n }\n]"
+									"body": "[\n {\n  \"id\": 80957104,\n  \"author\": \"voluptate veniam in pr\",\n  \"title\": \"dolo\",\n  \"price\": 53565938.1623767,\n  \"launchDate\": \"2012-04-04T13:36:42.921Z\",\n  \"_links\": {}\n },\n {\n  \"id\": 24939677,\n  \"author\": \"aliqua Lorem magna\",\n  \"title\": \"ipsum dolore occaecat\",\n  \"price\": 36758314.16905838,\n  \"launchDate\": \"1948-04-08T02:32:19.076Z\",\n  \"_links\": {}\n }\n]"
 								},
 								{
 									"name": "BadRequest",
@@ -1975,6 +1989,71 @@
 									"body": ""
 								}
 							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Authenticates a user and returns a token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"proident labore aute\",\n    \"password\": \"consequat dolor sint labore\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"proident labore aute\",\n    \"password\": \"consequat dolor sint labore\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/signin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"signin"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "in consectetur"
 						}
 					]
 				}
