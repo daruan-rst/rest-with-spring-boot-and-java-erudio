@@ -2,7 +2,9 @@ package br.com.eurdio.integrationtests.controller;
 
 import br.com.eurdio.configs.TestConfigs;
 import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
+import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.PersonVO;
+import br.com.eurdio.integrationtests.vo.TokenVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,23 +39,44 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
        person = new PersonVO();
     }
 
+    @Test
+    @Order(0)
+    public void authorization() throws JsonProcessingException {
+        AccountCredentialsVO user = new AccountCredentialsVO("leandro", "admin123");
+
+        var accessToken = given()
+                .basePath("auth/signin")
+                    .port(TestConfigs.SERVER_PORT)
+                    .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .body(user)
+                    .when()
+                .post()
+                .then()
+                    .statusCode(200)
+                        .extract()
+                        .body()
+                            .as(TokenVO.class)
+                            .getAccessToken();
+
+        specification = new RequestSpecBuilder()
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + accessToken)
+                .setBasePath("api/person/v1")
+                .setPort(TestConfigs.SERVER_PORT)
+                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
+                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
+                .build();
+    }
+
 
     @Test
     @Order(1)
     public void testCreate() throws JsonProcessingException {
         mockPerson();
 
-        specification = new RequestSpecBuilder()
-                                    .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
-                                    .setBasePath("api/person/v1")
-                                    .setPort(TestConfigs.SERVER_PORT)
-                                        .addFilter(new RequestLoggingFilter(LogDetail.ALL))
-                                        .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
-                                    .build();
-
         var content = given()
                         .spec(specification)
                         .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                        .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                         .body(person)
                         .when()
                             .post()
@@ -86,17 +109,10 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     public void testCreate_withWrongOrigin() throws JsonProcessingException {
         mockPerson();
 
-        specification = new RequestSpecBuilder()
-                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_SEMERU)
-                .setBasePath("api/person/v1")
-                .setPort(TestConfigs.SERVER_PORT)
-                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
-                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
-                .build();
-
         var content = given()
                 .spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_SEMERU)
                 .body(person)
                 .when()
                 .post()
@@ -115,17 +131,10 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     @Order(3)
     public void testFindById() throws JsonProcessingException {
 
-        specification = new RequestSpecBuilder()
-                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
-                .setBasePath("api/person/v1/")
-                .setPort(TestConfigs.SERVER_PORT)
-                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
-                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
-                .build();
-
         var content = given()
                 .spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .pathParam("id", person.getId())
                 .when()
                 .get("{id}")
@@ -157,17 +166,10 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     @Order(4)
     public void testFindById_withWrongOrigin() throws JsonProcessingException {
 
-        specification = new RequestSpecBuilder()
-                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_SEMERU)
-                .setBasePath("api/person/v1/")
-                .setPort(TestConfigs.SERVER_PORT)
-                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
-                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
-                .build();
-
         var content = given()
                 .spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_SEMERU)
                 .pathParam("id", person.getId())
                 .when()
                 .get("{id}")
