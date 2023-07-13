@@ -1,4 +1,4 @@
-package br.com.eurdio.integrationtests.controller;
+package br.com.eurdio.integrationtests.controller.withjson;
 
 import br.com.eurdio.configs.TestConfigs;
 import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
