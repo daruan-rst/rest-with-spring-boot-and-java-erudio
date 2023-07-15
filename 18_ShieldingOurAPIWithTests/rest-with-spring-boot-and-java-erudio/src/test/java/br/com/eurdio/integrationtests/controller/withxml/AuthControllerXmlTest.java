@@ -5,8 +5,7 @@ import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.TokenVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.specification.RequestSpecification;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -22,10 +21,6 @@ public class AuthControllerXmlTest extends AbstractIntegrationTest {
 
     private static TokenVO tokenVO;
 
-    private static RequestSpecification requestSpec = new RequestSpecBuilder()
-            .setContentType("application/xml")
-            .build();
-
     @Test
     @Order(1)
     public void testSignIn() throws JsonProcessingException {
@@ -34,8 +29,6 @@ public class AuthControllerXmlTest extends AbstractIntegrationTest {
 
 
         tokenVO = given()
-                .spec(requestSpec)
-                .header("Accept", "application/xml")
                 .basePath("auth/signin")
                 .port(TestConfigs.SERVER_PORT)
                 .contentType(TestConfigs.CONTENT_TYPE_XML)
@@ -54,24 +47,21 @@ public class AuthControllerXmlTest extends AbstractIntegrationTest {
 
     @Test
     @Order(2)
-    public void testRefresh() throws JsonProcessingException {
-        AccountCredentialsVO user = new AccountCredentialsVO("daruan", "admin123");
+    public void testRefresh() throws JsonMappingException, JsonProcessingException {
 
         var newTokenVO = given()
-                .spec(requestSpec)
-                .header("Accept", "application/xml")
-                .basePath("auth/refresh")
+                .basePath("/auth/refresh")
                 .port(TestConfigs.SERVER_PORT)
                 .contentType(TestConfigs.CONTENT_TYPE_XML)
-                    .pathParam("username", tokenVO.getUsername())
-                    .header(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + tokenVO.getRefreshToken())
+                .pathParam("username", tokenVO.getUsername())
+                .header(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + tokenVO.getRefreshToken())
                 .when()
-                    .put("{username}")
+                .put("{username}")
                 .then()
-                    .statusCode(200)
+                .statusCode(200)
                 .extract()
-                    .body()
-                        .as(TokenVO.class);
+                .body()
+                .as(TokenVO.class);
 
         assertNotNull(newTokenVO.getAccessToken());
         assertNotNull(newTokenVO.getRefreshToken());

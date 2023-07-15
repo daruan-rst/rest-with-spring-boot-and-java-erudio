@@ -35,7 +35,7 @@ public class AuthService {
             var tokenResponse = new TokenVO();
             
             if (user != null){
-                tokenResponse = tokenProvider.createAcessToken(username, user.getRoles());
+                tokenResponse = tokenProvider.createAccessToken(username, user.getRoles());
             }else {
                 throw new UsernameNotFoundException("Username " + username + " not Found!");
             }
@@ -44,6 +44,19 @@ public class AuthService {
         }catch (Exception e){
             throw new BadCredentialsException("Ivalid username/password supplied");
         }
+    }
+
+    @SuppressWarnings("rawtypes")
+    public ResponseEntity refreshToken(String username, String refreshToken) {
+        var user = repository.findByUsername(username);
+
+        var tokenResponse = new TokenVO();
+        if (user != null) {
+            tokenResponse = tokenProvider.refreshToken(refreshToken);
+        } else {
+            throw new UsernameNotFoundException("Username " + username + " not found!");
+        }
+        return ResponseEntity.ok(tokenResponse);
     }
 
 }
