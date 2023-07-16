@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @XmlRootElement
-
 public class PersonVO implements Serializable {
 
     private static final Long serialVersionUID =  1L;
