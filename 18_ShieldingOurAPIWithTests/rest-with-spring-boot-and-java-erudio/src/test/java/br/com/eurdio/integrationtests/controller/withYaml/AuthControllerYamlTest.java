@@ -4,7 +4,7 @@ import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertNotNull;
 
 import br.com.eurdio.configs.TestConfigs;
-import br.com.eurdio.integrationtests.controller.withYaml.mapper.YmlMapper;
+import br.com.eurdio.integrationtests.controller.withYaml.mapper.YMLMapper;
 import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.TokenVO;
@@ -32,12 +32,12 @@ import io.restassured.specification.RequestSpecification;
 @TestMethodOrder(OrderAnnotation.class)
 public class AuthControllerYamlTest extends AbstractIntegrationTest {
 
-    private static YmlMapper objectMapper;
+    private static YMLMapper objectMapper;
     private static TokenVO tokenVO;
 
     @BeforeAll
     public static void setup() {
-        objectMapper = new YmlMapper();
+        objectMapper = new YMLMapper();
     }
 
     @Test
@@ -52,7 +52,8 @@ public class AuthControllerYamlTest extends AbstractIntegrationTest {
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
 
-        tokenVO = given().spec(specification)
+        tokenVO = given()
+                .spec(specification)
                 .config(
                         RestAssuredConfig
                                 .config()
@@ -61,7 +62,7 @@ public class AuthControllerYamlTest extends AbstractIntegrationTest {
                                                 TestConfigs.CONTENT_TYPE_YML,
                                                 ContentType.TEXT)))
                 .accept(TestConfigs.CONTENT_TYPE_YML)
-                .basePath("/auth/signin")
+                .basePath("auth/signin")
                 .port(TestConfigs.SERVER_PORT)
                 .contentType(TestConfigs.CONTENT_TYPE_YML)
                 .body(user, objectMapper)
@@ -90,7 +91,7 @@ public class AuthControllerYamlTest extends AbstractIntegrationTest {
                                                 TestConfigs.CONTENT_TYPE_YML,
                                                 ContentType.TEXT)))
                 .accept(TestConfigs.CONTENT_TYPE_YML)
-                .basePath("/auth/refresh")
+                .basePath("auth/refresh")
                 .port(TestConfigs.SERVER_PORT)
                 .contentType(TestConfigs.CONTENT_TYPE_YML)
                 .pathParam("username", tokenVO.getUsername())

@@ -12,14 +12,14 @@ import io.restassured.mapper.ObjectMapper;
 import io.restassured.mapper.ObjectMapperDeserializationContext;
 import io.restassured.mapper.ObjectMapperSerializationContext;
 
-public class YmlMapper implements ObjectMapper{
+public class YMLMapper implements ObjectMapper{
 
-    private Logger logger = Logger.getLogger(YmlMapper.class.getName());
+    private Logger logger = Logger.getLogger(YMLMapper.class.getName());
 
     private com.fasterxml.jackson.databind.ObjectMapper objectMapper;
     protected TypeFactory typeFactory;
 
-    public YmlMapper() {
+    public YMLMapper() {
         objectMapper = new com.fasterxml.jackson.databind.ObjectMapper(new YAMLFactory());
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         typeFactory = TypeFactory.defaultInstance();
