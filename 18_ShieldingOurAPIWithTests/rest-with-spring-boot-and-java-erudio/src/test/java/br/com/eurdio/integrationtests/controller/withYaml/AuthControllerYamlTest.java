@@ -45,15 +45,14 @@ public class AuthControllerYamlTest extends AbstractIntegrationTest {
     public void testSignin() throws JsonMappingException, JsonProcessingException {
 
         AccountCredentialsVO user =
-                new AccountCredentialsVO("daruan", "admin123");
+                new AccountCredentialsVO("leandro", "admin123");
 
         RequestSpecification specification = new RequestSpecBuilder()
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
 
-        tokenVO = given()
-                .spec(specification)
+        tokenVO = given().spec(specification)
                 .config(
                         RestAssuredConfig
                                 .config()
@@ -62,7 +61,7 @@ public class AuthControllerYamlTest extends AbstractIntegrationTest {
                                                 TestConfigs.CONTENT_TYPE_YML,
                                                 ContentType.TEXT)))
                 .accept(TestConfigs.CONTENT_TYPE_YML)
-                .basePath("auth/signin")
+                .basePath("/auth/signin")
                 .port(TestConfigs.SERVER_PORT)
                 .contentType(TestConfigs.CONTENT_TYPE_YML)
                 .body(user, objectMapper)
@@ -91,7 +90,7 @@ public class AuthControllerYamlTest extends AbstractIntegrationTest {
                                                 TestConfigs.CONTENT_TYPE_YML,
                                                 ContentType.TEXT)))
                 .accept(TestConfigs.CONTENT_TYPE_YML)
-                .basePath("auth/refresh")
+                .basePath("/auth/refresh")
                 .port(TestConfigs.SERVER_PORT)
                 .contentType(TestConfigs.CONTENT_TYPE_YML)
                 .pathParam("username", tokenVO.getUsername())
