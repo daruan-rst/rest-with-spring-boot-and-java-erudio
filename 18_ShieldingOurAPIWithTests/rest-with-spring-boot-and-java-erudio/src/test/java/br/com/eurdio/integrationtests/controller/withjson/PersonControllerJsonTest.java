@@ -17,7 +17,6 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static br.com.eurdio.configs.TestConfigs.ORIGIN_ERUDIO;
-import static br.com.eurdio.configs.TestConfigs.ORIGIN_SEMERU;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -106,29 +105,6 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
     @Test
     @Order(2)
-    public void testCreate_withWrongOrigin() throws JsonProcessingException {
-        mockPerson();
-
-        var content = given()
-                .spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
-                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_SEMERU)
-                .body(person)
-                .when()
-                .post()
-                .then()
-                .statusCode(403)
-                .extract()
-                .body()
-                .asString();
-
-
-        assertNotNull(content);
-        assertEquals("Invalid CORS request", content);
-    }
-
-    @Test
-    @Order(3)
     public void testFindById() throws JsonProcessingException {
 
         var content = given()
@@ -163,26 +139,78 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Order(4)
-    public void testFindById_withWrongOrigin() throws JsonProcessingException {
+    @Order(3)
+    public void testUpdate() throws JsonProcessingException {
+        person.setFirstName("Robert");
+        person.setLastName("Martin");
 
         var content = given()
                 .spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_JSON)
-                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_SEMERU)
-                .pathParam("id", person.getId())
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .body(person)
                 .when()
-                .get("{id}")
+                .put()
                 .then()
-                .statusCode(403)
+                .statusCode(200)
                 .extract()
-                .body()
                 .asString();
 
-            assertNotNull(content);
-            assertEquals("Invalid CORS request", content);
+        PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
+        person = persistedPerson;
+
+        assertNotNull(persistedPerson);
+        assertTrue(persistedPerson.getId() > 0);
+        assertNotNull(persistedPerson.getFirstName());
+        assertNotNull(persistedPerson.getLastName());
+        assertNotNull(persistedPerson.getAddress());
+        assertNotNull(persistedPerson.getGender());
+
+        assertEquals("Robert" , persistedPerson.getFirstName());
+        assertEquals("Martin" , persistedPerson.getLastName());
+        assertEquals("New York City, New York, US", persistedPerson.getAddress());
+        assertEquals("Male"  , persistedPerson.getGender());
+
 
     }
+
+    @Test
+    @Order(4)
+    public void testDelete() throws JsonProcessingException {
+
+        given()
+                .spec(specification)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .pathParam("id", person.getId())
+                .when()
+                .delete("{id}")
+                .then()
+                .statusCode(204)
+                .extract()
+                .asString();
+
+
+            var content = given()
+                    .spec(specification)
+                    .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                    .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                    .pathParam("id", person.getId())
+                    .when()
+                    .get("{id}")
+                    .then()
+                    .statusCode(404)
+                    .extract()
+                    .body()
+                    .asString();
+
+        Assertions.assertTrue(content.contains("No records found for this ID!"));
+
+
+
+    }
+
+
 
     private void mockPerson() {
         person.setFirstName("Richard");
