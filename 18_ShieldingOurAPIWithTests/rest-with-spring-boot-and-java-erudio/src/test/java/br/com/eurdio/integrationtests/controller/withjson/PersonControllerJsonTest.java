@@ -6,6 +6,7 @@ import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.PersonVO;
 import br.com.eurdio.integrationtests.vo.TokenVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.builder.RequestSpecBuilder;
@@ -16,6 +17,9 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+import static br.com.eurdio.configs.TestConfigs.CONTENT_TYPE_JSON;
 import static br.com.eurdio.configs.TestConfigs.ORIGIN_ERUDIO;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,7 +44,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
     @Test
     @Order(0)
-    public void authorization() throws JsonProcessingException {
+    public void authorization() {
         AccountCredentialsVO user = new AccountCredentialsVO("daruan", "admin123");
 
         var accessToken = given()
@@ -176,7 +180,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
     @Test
     @Order(4)
-    public void testDelete() throws JsonProcessingException {
+    public void testDelete() {
 
         given()
                 .spec(specification)
@@ -206,9 +210,66 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
         Assertions.assertTrue(content.contains("No records found for this ID!"));
 
+    }
+
+    @Test
+    @Order(5)
+    public void testFindAll() throws JsonProcessingException {
+
+        var content = given()
+                .spec(specification)
+                .contentType(CONTENT_TYPE_JSON)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        assertNotNull(content);
+
+        List<PersonVO> allPeople = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {});
+
+        PersonVO lastPerson = allPeople.get(allPeople.size()-1);
+
+        Assertions.assertEquals("Carrie", lastPerson.getFirstName());
+        Assertions.assertEquals("Fisher", lastPerson.getLastName());
+        Assertions.assertEquals("Los Angeles, California", lastPerson.getAddress());
+        Assertions.assertEquals("Female", lastPerson.getGender());
+
+    }
+
+    @Test
+    @Order(6)
+    public void testFindAllWithoutToken() throws JsonProcessingException {
+
+        RequestSpecification specification = new RequestSpecBuilder()
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "")
+                .setBasePath("api/person/v1")
+                .setPort(TestConfigs.SERVER_PORT)
+                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
+                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
+                .build();
+
+         given()
+                .spec(specification)
+                .contentType(CONTENT_TYPE_JSON)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .when()
+                .get()
+                .then()
+                .statusCode(403)
+                .extract()
+                .body()
+                .asString();
+
 
 
     }
+
+
 
 
 
