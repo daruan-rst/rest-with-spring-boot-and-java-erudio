@@ -19,8 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static br.com.eurdio.configs.TestConfigs.CONTENT_TYPE_JSON;
-import static br.com.eurdio.configs.TestConfigs.ORIGIN_ERUDIO;
+import static br.com.eurdio.configs.TestConfigs.*;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,7 +49,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         var accessToken = given()
                 .basePath("auth/signin")
                     .port(TestConfigs.SERVER_PORT)
-                    .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                    .contentType(CONTENT_TYPE_XML)
                 .body(user)
                     .when()
                 .post()
@@ -78,7 +77,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
         var content = given()
                         .spec(specification)
-                        .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                        .contentType(CONTENT_TYPE_XML)
                         .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                         .body(person)
                         .when()
@@ -113,7 +112,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
         var content = given()
                 .spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .contentType(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .pathParam("id", person.getId())
                 .when()
@@ -150,7 +149,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
         var content = given()
                 .spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .contentType(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .body(person)
                 .when()
@@ -184,7 +183,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
         given()
                 .spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .contentType(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .pathParam("id", person.getId())
                 .when()
@@ -197,7 +196,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
             var content = given()
                     .spec(specification)
-                    .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                    .contentType(CONTENT_TYPE_XML)
                     .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                     .pathParam("id", person.getId())
                     .when()
@@ -218,7 +217,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
         var content = given()
                 .spec(specification)
-                .contentType(CONTENT_TYPE_JSON)
+                .contentType(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .when()
                 .get()
@@ -255,7 +254,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
          given()
                 .spec(specification)
-                .contentType(CONTENT_TYPE_JSON)
+                .contentType(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .when()
                 .get()
