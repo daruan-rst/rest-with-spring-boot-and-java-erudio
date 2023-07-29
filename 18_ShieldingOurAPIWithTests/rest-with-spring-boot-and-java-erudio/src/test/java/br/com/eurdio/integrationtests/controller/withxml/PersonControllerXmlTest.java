@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -29,13 +30,13 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
     private static RequestSpecification specification;
 
-    private static ObjectMapper objectMapper;
+    private static XmlMapper objectMapper;
 
     private static PersonVO person;
 
     @BeforeAll
     public static void setUp(){
-       objectMapper = new ObjectMapper();
+       objectMapper = new XmlMapper();
        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
        person = new PersonVO();
@@ -78,6 +79,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         var content = given()
                         .spec(specification)
                         .contentType(CONTENT_TYPE_XML)
+                        .accept(CONTENT_TYPE_XML)
                         .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                         .body(person)
                         .when()
@@ -113,6 +115,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         var content = given()
                 .spec(specification)
                 .contentType(CONTENT_TYPE_XML)
+                .accept(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .pathParam("id", person.getId())
                 .when()
@@ -150,6 +153,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         var content = given()
                 .spec(specification)
                 .contentType(CONTENT_TYPE_XML)
+                .accept(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .body(person)
                 .when()
@@ -184,6 +188,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         given()
                 .spec(specification)
                 .contentType(CONTENT_TYPE_XML)
+                .accept(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .pathParam("id", person.getId())
                 .when()
@@ -218,6 +223,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         var content = given()
                 .spec(specification)
                 .contentType(CONTENT_TYPE_XML)
+                .accept(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .when()
                 .get()
@@ -255,6 +261,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
          given()
                 .spec(specification)
                 .contentType(CONTENT_TYPE_XML)
+                 .accept(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .when()
                 .get()
