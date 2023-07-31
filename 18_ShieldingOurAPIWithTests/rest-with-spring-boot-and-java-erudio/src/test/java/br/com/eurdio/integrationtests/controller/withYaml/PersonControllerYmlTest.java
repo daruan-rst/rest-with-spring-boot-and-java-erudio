@@ -23,6 +23,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 import static br.com.eurdio.configs.TestConfigs.CONTENT_TYPE_YML;
@@ -98,7 +99,6 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
                                                 ContentType.TEXT)))
                 .accept(TestConfigs.CONTENT_TYPE_YML)
                         .spec(specification)
-                        .accept(CONTENT_TYPE_YML)
                         .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                         .body(person, objectMapper)
                         .when()
@@ -132,6 +132,13 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
 
         PersonVO persistedPerson = given()
                 .spec(specification)
+                .config(
+                RestAssuredConfig
+                        .config()
+                        .encoderConfig(EncoderConfig.encoderConfig()
+                                .encodeContentTypeAs(
+                                        TestConfigs.CONTENT_TYPE_YML,
+                                        ContentType.TEXT)))
                 .contentType(CONTENT_TYPE_YML)
                 .accept(CONTENT_TYPE_YML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
@@ -169,6 +176,13 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
 
         PersonVO persistedPerson = given()
                 .spec(specification)
+                .config(
+                        RestAssuredConfig
+                                .config()
+                                .encoderConfig(EncoderConfig.encoderConfig()
+                                        .encodeContentTypeAs(
+                                                TestConfigs.CONTENT_TYPE_YML,
+                                                ContentType.TEXT)))
                 .contentType(CONTENT_TYPE_YML)
                 .accept(CONTENT_TYPE_YML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
@@ -203,6 +217,13 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
 
         given()
                 .spec(specification)
+                .config(
+                        RestAssuredConfig
+                                .config()
+                                .encoderConfig(EncoderConfig.encoderConfig()
+                                        .encodeContentTypeAs(
+                                                TestConfigs.CONTENT_TYPE_YML,
+                                                ContentType.TEXT)))
                 .contentType(CONTENT_TYPE_YML)
                 .accept(CONTENT_TYPE_YML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
@@ -236,8 +257,15 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
     @Order(5)
     public void testFindAll() throws JsonProcessingException {
 
-        List<PersonVO> allPeople = given()
+        PersonVO[] allPeople = given()
                 .spec(specification)
+                .config(
+                        RestAssuredConfig
+                                .config()
+                                .encoderConfig(EncoderConfig.encoderConfig()
+                                        .encodeContentTypeAs(
+                                                TestConfigs.CONTENT_TYPE_YML,
+                                                ContentType.TEXT)))
                 .contentType(CONTENT_TYPE_YML)
                 .accept(CONTENT_TYPE_YML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
@@ -247,12 +275,12 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
                 .statusCode(200)
                 .extract()
                 .body()
-                .as(new TypeRef<List<PersonVO>>() {});
+                .as(PersonVO[].class, objectMapper);
 
         assertNotNull(allPeople);
 
 
-        PersonVO lastPerson = allPeople.get(allPeople.size()-1);
+        PersonVO lastPerson = allPeople[allPeople.length-1];
 
         Assertions.assertEquals("Carrie", lastPerson.getFirstName());
         Assertions.assertEquals("Fisher", lastPerson.getLastName());
