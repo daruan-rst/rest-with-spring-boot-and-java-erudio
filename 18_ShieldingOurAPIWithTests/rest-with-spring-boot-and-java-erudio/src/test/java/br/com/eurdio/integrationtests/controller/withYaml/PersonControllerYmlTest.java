@@ -90,15 +90,17 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
     public void testCreate() throws JsonProcessingException {
         mockPerson();
 
-        PersonVO createdPerson = given().config(
+        PersonVO createdPerson = given()
+                .spec(specification)
+                .config(
                         RestAssuredConfig
                                 .config()
                                 .encoderConfig(EncoderConfig.encoderConfig()
                                         .encodeContentTypeAs(
                                                 TestConfigs.CONTENT_TYPE_YML,
                                                 ContentType.TEXT)))
-                .accept(TestConfigs.CONTENT_TYPE_YML)
-                        .spec(specification)
+                .contentType(CONTENT_TYPE_YML)
+                .accept(CONTENT_TYPE_YML)
                         .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                         .body(person, objectMapper)
                         .when()
@@ -133,12 +135,12 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
         PersonVO persistedPerson = given()
                 .spec(specification)
                 .config(
-                RestAssuredConfig
-                        .config()
-                        .encoderConfig(EncoderConfig.encoderConfig()
-                                .encodeContentTypeAs(
-                                        TestConfigs.CONTENT_TYPE_YML,
-                                        ContentType.TEXT)))
+                        RestAssuredConfig
+                                .config()
+                                .encoderConfig(EncoderConfig.encoderConfig()
+                                        .encodeContentTypeAs(
+                                                TestConfigs.CONTENT_TYPE_YML,
+                                                ContentType.TEXT)))
                 .contentType(CONTENT_TYPE_YML)
                 .accept(CONTENT_TYPE_YML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
@@ -186,7 +188,7 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
                 .contentType(CONTENT_TYPE_YML)
                 .accept(CONTENT_TYPE_YML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
-                .body(person)
+                .body(person, objectMapper)
                 .when()
                 .put()
                 .then()
@@ -279,7 +281,6 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
 
         assertNotNull(allPeople);
 
-
         PersonVO lastPerson = allPeople[allPeople.length-1];
 
         Assertions.assertEquals("Carrie", lastPerson.getFirstName());
@@ -317,9 +318,6 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
 
 
     }
-
-
-
 
 
     private void mockPerson() {
