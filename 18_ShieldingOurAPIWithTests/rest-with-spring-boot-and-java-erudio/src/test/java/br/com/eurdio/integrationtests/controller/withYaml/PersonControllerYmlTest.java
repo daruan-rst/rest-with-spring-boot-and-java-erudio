@@ -7,11 +7,7 @@ import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.PersonVO;
 import br.com.eurdio.integrationtests.vo.TokenVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.common.mapper.TypeRef;
 import io.restassured.config.EncoderConfig;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.log.LogDetail;
@@ -21,10 +17,6 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.List;
 
 import static br.com.eurdio.configs.TestConfigs.CONTENT_TYPE_YML;
 import static br.com.eurdio.configs.TestConfigs.ORIGIN_ERUDIO;
@@ -188,7 +180,7 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
                 .contentType(CONTENT_TYPE_YML)
                 .accept(CONTENT_TYPE_YML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
-                .body(person, objectMapper)
+                .body(person, objectMapper )
                 .when()
                 .put()
                 .then()
