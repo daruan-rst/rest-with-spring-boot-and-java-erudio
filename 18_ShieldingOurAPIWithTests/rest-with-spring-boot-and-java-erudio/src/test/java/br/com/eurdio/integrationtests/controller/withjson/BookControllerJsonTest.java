@@ -4,7 +4,6 @@ import br.com.eurdio.configs.TestConfigs;
 import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.Book;
-import br.com.eurdio.integrationtests.vo.PersonVO;
 import br.com.eurdio.integrationtests.vo.TokenVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -19,8 +18,6 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -95,7 +92,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                                     .asString();
 
             Book createdBook = objectMapper.readValue(content, Book.class);
-            book = createdBook;
+//            book = createdBook;
 
             assertNotNull(createdBook);
             assertTrue(createdBook.getId() > 0);
@@ -104,10 +101,10 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
             assertNotNull(createdBook.getTitle());
             assertNotNull(createdBook.getLaunchDate());
 
-            assertEquals(new BigDecimal(70.12), createdBook.getPrice());
+            assertEquals(new BigDecimal("70.12"), createdBook.getPrice());
             assertEquals("Graciliano Ramos", createdBook.getAuthor());
             assertEquals("Vidas Secas", createdBook.getTitle());
-            assertEquals(new Date(1938,05,04), createdBook.getLaunchDate());
+            assertEquals(new Date("1938/05/4"), createdBook.getLaunchDate());
 
 
     }
@@ -139,7 +136,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         assertNotNull(persistedBook.getTitle());
         assertNotNull(persistedBook.getLaunchDate());
 
-        assertEquals(new BigDecimal(70.12), persistedBook.getPrice());
+        assertEquals(new BigDecimal("70.12"), persistedBook.getPrice());
         assertEquals("Graciliano Ramos", persistedBook.getAuthor());
         assertEquals("Vidas Secas", persistedBook.getTitle());
         assertEquals(new Date(1938,05,04), persistedBook.getLaunchDate());
@@ -175,7 +172,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         assertNotNull(persistedBook.getTitle());
         assertNotNull(persistedBook.getLaunchDate());
 
-        assertEquals(new BigDecimal(70.12), persistedBook.getPrice());
+        assertEquals(new BigDecimal("70.12"), persistedBook.getPrice());
         assertEquals("João Roberto", persistedBook.getAuthor());
         assertEquals("Vidas Secas", persistedBook.getTitle());
         assertEquals(new Date(1938,05,04), persistedBook.getLaunchDate());
@@ -239,10 +236,10 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 
         Book lastBook = allBook.get(allBook.size()-1);
 
-        Assertions.assertEquals("Carrie", lastBook.getPrice());
-        Assertions.assertEquals("Fisher", lastBook.getAuthor());
-        Assertions.assertEquals("Los Angeles, California", lastBook.getTitle());
-        Assertions.assertEquals("Female", lastBook.getLaunchDate());
+        Assertions.assertEquals(new BigDecimal("54.00"), lastBook.getPrice());
+        Assertions.assertEquals("Aguinaldo Aragon Fernandes e Vladimir Ferraz de Abreu", lastBook.getAuthor());
+        Assertions.assertEquals("Implantando a governança de TI", lastBook.getTitle());
+        Assertions.assertEquals(new Date("2017-11-07"), lastBook.getLaunchDate());
 
     }
 
@@ -278,8 +275,8 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     private void mockBook() {
         book.setId(5);
         book.setAuthor("Graciliano Ramos");
-        book.setPrice(new BigDecimal(70.12));
-        book.setLaunchDate(new Date(1938,05,04));
+        book.setPrice(new BigDecimal("70.12"));
+        book.setLaunchDate(new Date("1938/05/04"));
         book.setTitle("Vidas Secas");
     }
 
