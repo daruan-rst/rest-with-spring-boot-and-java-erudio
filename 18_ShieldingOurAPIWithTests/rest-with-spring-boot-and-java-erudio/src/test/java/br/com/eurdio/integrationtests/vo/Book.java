@@ -1,8 +1,10 @@
 package br.com.eurdio.integrationtests.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -54,7 +56,7 @@ public class Book extends RepresentationModel<Book> implements Serializable {
         this.author = author;
     }
 
-    @JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
+    @JsonDeserialize()
     public Date getLaunchDate() {
         return launchDate;
     }

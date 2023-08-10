@@ -18,8 +18,10 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static br.com.eurdio.configs.TestConfigs.CONTENT_TYPE_JSON;
 import static br.com.eurdio.configs.TestConfigs.ORIGIN_ERUDIO;
@@ -40,7 +42,8 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     public static void setUp(){
        objectMapper = new ObjectMapper();
        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
+        objectMapper.setLocale(Locale.forLanguageTag("BRL"));
+        DateFormat format = objectMapper.getDateFormat();
        book = new Book();
     }
 
@@ -266,8 +269,6 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                 .extract()
                 .body()
                 .asString();
-
-
 
     }
 
