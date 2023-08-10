@@ -88,7 +88,7 @@ public class BookController {
         return bookService.createBook(book);
     }
 
-    @PutMapping(
+    @PutMapping(value = "/{id}",
             consumes =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_YML, MediaType.APPLICATION_XML},
             produces =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_YML, MediaType.APPLICATION_XML}
     )
@@ -109,7 +109,7 @@ public class BookController {
         return bookService.updateBook(book, id);
     }
 
-    @DeleteMapping(
+    @DeleteMapping(value = "/{id}",
             consumes =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_YML, MediaType.APPLICATION_XML},
             produces =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_YML, MediaType.APPLICATION_XML}
     )
@@ -124,8 +124,7 @@ public class BookController {
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
             })
     public ResponseEntity<Void> deleteBook(
-            @PathVariable Long id,
-            @RequestBody Book book
+            @PathVariable Long id
     ){
         bookService.deleteBookById(id);
         return ResponseEntity.noContent().build();

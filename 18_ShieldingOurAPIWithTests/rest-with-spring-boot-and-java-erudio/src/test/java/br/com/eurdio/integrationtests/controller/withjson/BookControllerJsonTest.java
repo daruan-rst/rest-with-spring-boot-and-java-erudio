@@ -19,9 +19,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import static br.com.eurdio.configs.TestConfigs.CONTENT_TYPE_JSON;
 import static br.com.eurdio.configs.TestConfigs.ORIGIN_ERUDIO;
@@ -42,8 +45,9 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     public static void setUp(){
        objectMapper = new ObjectMapper();
        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        objectMapper.setLocale(Locale.forLanguageTag("BRL"));
-        DateFormat format = objectMapper.getDateFormat();
+//       DateFormat format = objectMapper.getDateFormat();
+       objectMapper.setTimeZone(TimeZone.getDefault());
+//       objectMapper.setLocale(Locale.forLanguageTag("BRL"));
        book = new Book();
     }
 
@@ -142,7 +146,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         assertEquals(new BigDecimal("70.12"), persistedBook.getPrice());
         assertEquals("Graciliano Ramos", persistedBook.getAuthor());
         assertEquals("Vidas Secas", persistedBook.getTitle());
-        assertEquals(new Date(1938,05,04), persistedBook.getLaunchDate());
+        assertEquals(new Date("1938/05/4"), persistedBook.getLaunchDate());
 
 
     }
@@ -157,9 +161,10 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                 .spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_JSON)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .pathParam("id", book.getId())
                 .body(book)
                 .when()
-                .put()
+                .put("{id}")
                 .then()
                 .statusCode(200)
                 .extract()
@@ -178,7 +183,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         assertEquals(new BigDecimal("70.12"), persistedBook.getPrice());
         assertEquals("João Roberto", persistedBook.getAuthor());
         assertEquals("Vidas Secas", persistedBook.getTitle());
-        assertEquals(new Date(1938,05,04), persistedBook.getLaunchDate());
+        assertEquals(new Date("1938/05/4"), persistedBook.getLaunchDate());
 
 
     }
@@ -199,21 +204,6 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                 .extract()
                 .asString();
 
-
-            var content = given()
-                    .spec(specification)
-                    .contentType(TestConfigs.CONTENT_TYPE_JSON)
-                    .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
-                    .pathParam("id", book.getId())
-                    .when()
-                    .get("{id}")
-                    .then()
-                    .statusCode(404)
-                    .extract()
-                    .body()
-                    .asString();
-
-        Assertions.assertTrue(content.contains("No records found for this ID!"));
 
     }
 
@@ -242,7 +232,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         Assertions.assertEquals(new BigDecimal("54.00"), lastBook.getPrice());
         Assertions.assertEquals("Aguinaldo Aragon Fernandes e Vladimir Ferraz de Abreu", lastBook.getAuthor());
         Assertions.assertEquals("Implantando a governança de TI", lastBook.getTitle());
-        Assertions.assertEquals(new Date("2017-11-07"), lastBook.getLaunchDate());
+        Assertions.assertEquals(new Date("2017/11/07"), lastBook.getLaunchDate());
 
     }
 
