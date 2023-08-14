@@ -1,5 +1,6 @@
 package br.com.eurdio.integrationtests.controller.withYaml.mapper;
 
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,6 +23,7 @@ public class YMLMapper implements ObjectMapper{
     public YMLMapper() {
         objectMapper = new com.fasterxml.jackson.databind.ObjectMapper(new YAMLFactory());
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.setTimeZone(TimeZone.getDefault());
         typeFactory = TypeFactory.defaultInstance();
     }
 
