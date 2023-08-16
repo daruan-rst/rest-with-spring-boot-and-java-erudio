@@ -63,7 +63,6 @@ public class PersonController {
     }
 
     @CrossOrigin(origins = {"http://localhost:8080", "https://erudio.com.br"})
-
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
@@ -98,6 +97,23 @@ public class PersonController {
             })
     public PersonVO update(@RequestBody PersonVO person) throws Exception {
         return service.update(person);
+    }
+
+    @PatchMapping(value = "/{id}",
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+    @Operation(summary = "Disables a specific person by id", description = "Disables a specific person by id",
+            tags = {"People"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content (schema = @Schema(implementation = PersonVO.class))),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
+            })
+    public PersonVO disablePerson(@PathVariable(value = "id") Long id) throws Exception {
+        return service.disablePerson(id);
     }
 
     @DeleteMapping(value = "/{id}",
