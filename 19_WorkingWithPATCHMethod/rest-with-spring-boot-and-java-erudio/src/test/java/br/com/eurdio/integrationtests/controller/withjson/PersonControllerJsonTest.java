@@ -277,6 +277,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         Assertions.assertEquals("Fisher", lastPerson.getLastName());
         Assertions.assertEquals("Los Angeles, California", lastPerson.getAddress());
         Assertions.assertEquals("Female", lastPerson.getGender());
+        Assertions.assertTrue(lastPerson.getEnabled());
 
     }
 
