@@ -10,7 +10,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,8 +44,13 @@ public class PersonController {
                     @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             })
-    public List<PersonVO> findAll() throws Exception {
-        return service.findAll();
+    public ResponseEntity<Page<PersonVO>> findAll(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "limit", defaultValue = "12") Integer limit
+    )  {
+        Pageable pageable = PageRequest.of(page, limit);
+
+        return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @CrossOrigin(origins = "http://localhost:8080")
@@ -58,7 +67,7 @@ public class PersonController {
                     @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             })
-    public PersonVO findById(@PathVariable(value = "id") Long id) throws Exception {
+    public PersonVO findById(@PathVariable(value = "id") Long id){
         return service.findById(id);
     }
 
@@ -77,7 +86,7 @@ public class PersonController {
                     @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             })
-    public PersonVO create(@RequestBody PersonVO person) throws Exception {
+    public PersonVO create(@RequestBody PersonVO person){
         return service.create(person);
     }
 
@@ -95,7 +104,7 @@ public class PersonController {
                     @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             })
-    public PersonVO update(@RequestBody PersonVO person) throws Exception {
+    public PersonVO update(@RequestBody PersonVO person) {
         return service.update(person);
     }
 

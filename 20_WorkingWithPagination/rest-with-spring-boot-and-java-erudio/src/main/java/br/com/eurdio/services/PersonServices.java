@@ -8,6 +8,8 @@ import br.com.eurdio.mapper.DozerMapper;
 import br.com.eurdio.model.Person;
 import br.com.eurdio.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,23 +26,19 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
-    public List<PersonVO> findAll() {
+    public Page<PersonVO> findAll(Pageable pageable) {
         logger.info("Finding all people!");
 
-        var persons =  DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
-        persons
-            .stream()
-            .forEach(p -> {
-                try {
-                    p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel());
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        return persons;
+        var personPage = repository.findAll(pageable);
+
+        var personVosPage = personPage.map( p -> DozerMapper.parseObject(p, PersonVO.class));
+
+        personVosPage.map(p ->  p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+
+        return personVosPage;
     }
 
-    public PersonVO findById(Long id) throws Exception {
+    public PersonVO findById(Long id) {
         logger.info("Finding one person!");
 
         var entity = repository.findById(id)
@@ -51,7 +49,7 @@ public class PersonServices {
         return vo;
     }
 
-    public PersonVO create(PersonVO person) throws Exception {
+    public PersonVO create(PersonVO person) {
 
         if (person == null){
             throw new RequiredObjectIsNullException();
@@ -63,7 +61,7 @@ public class PersonServices {
         return vo;
     }
 
-    public PersonVO update(PersonVO person) throws Exception {
+    public PersonVO update(PersonVO person){
 
         if (person == null){
             throw new RequiredObjectIsNullException();
@@ -85,7 +83,7 @@ public class PersonServices {
     }
 
     @Transactional
-    public PersonVO disablePerson(Long id) throws Exception {
+    public PersonVO disablePerson(Long id) {
         logger.info("Disabling one person!");
 
         repository.disablePerson(id);
