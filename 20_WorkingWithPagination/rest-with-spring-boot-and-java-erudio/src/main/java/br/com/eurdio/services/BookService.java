@@ -9,6 +9,12 @@ import java.util.List;
 import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,18 +26,26 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    PagedResourcesAssembler<Book> assembler;
+
     private Logger logger = Logger.getLogger(BookService.class.getName());
 
-    public List<Book> findAll(){
-        List<Book> books = bookRepository.findAll();
+    public PagedModel<EntityModel<Book>> findAll(Pageable pageable){
+
+        var books = bookRepository.findAll(pageable);
+
         books.forEach(b -> {
-            try {
-                b.add(linkTo(methodOn(BookController.class).findById(b.getId())).withSelfRel());
-            }catch (Exception e){
-                throw new RuntimeException(e);
-            }
+            b.add(linkTo(methodOn(BookController.class).findById(b.getId())).withSelfRel());
         });
-        return books;
+
+        Link link = linkTo(methodOn(BookController.class)
+                        .findAll(pageable.getPageNumber(),
+                                pageable.getPageSize(),
+                                pageable.getSort().toString()))
+                                .withSelfRel();
+
+        return assembler.toModel(books, link);
     }
 
     public Book findById(Long id){
