@@ -6,6 +6,7 @@ import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.PersonVO;
 import br.com.eurdio.integrationtests.vo.TokenVO;
+import br.com.eurdio.integrationtests.vo.wrappers.WrapperPersonVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;
@@ -300,7 +301,7 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
     @Order(6)
     public void testFindAll() throws JsonProcessingException {
 
-        PersonVO[] allPeople = given()
+        WrapperPersonVO wrapper = given()
                 .spec(specification)
                 .config(
                         RestAssuredConfig
@@ -318,11 +319,13 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
                 .statusCode(200)
                 .extract()
                 .body()
-                .as(PersonVO[].class, objectMapper);
+                .as(WrapperPersonVO.class, objectMapper);
 
-        assertNotNull(allPeople);
+        assertNotNull(wrapper);
 
-        PersonVO lastPerson = allPeople[allPeople.length-1];
+        var allPeople = wrapper.getEmbedded().getPersons();
+
+        PersonVO lastPerson = allPeople.get(allPeople.size()-1);
 
         Assertions.assertEquals("Carrie", lastPerson.getFirstName());
         Assertions.assertEquals("Fisher", lastPerson.getLastName());

@@ -5,6 +5,7 @@ import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.PersonVO;
 import br.com.eurdio.integrationtests.vo.TokenVO;
+import br.com.eurdio.integrationtests.vo.wrappers.WrapperPersonVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -269,8 +270,9 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
         assertNotNull(content);
 
-        List<PersonVO> allPeople = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {});
+        WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
 
+        var allPeople = wrapper.getEmbedded().getPersons();
         PersonVO lastPerson = allPeople.get(allPeople.size()-1);
 
         Assertions.assertEquals("Carrie", lastPerson.getFirstName());
