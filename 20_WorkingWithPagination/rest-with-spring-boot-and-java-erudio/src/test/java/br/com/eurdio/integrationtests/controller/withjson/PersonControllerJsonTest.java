@@ -259,6 +259,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         var content = given()
                 .spec(specification)
                 .contentType(CONTENT_TYPE_JSON)
+                .queryParams("page",3,"size",10,"direction","asc")
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .when()
                 .get()
@@ -275,11 +276,11 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         var allPeople = wrapper.getEmbedded().getPersons();
         PersonVO lastPerson = allPeople.get(allPeople.size()-1);
 
-        Assertions.assertEquals("Carrie", lastPerson.getFirstName());
-        Assertions.assertEquals("Fisher", lastPerson.getLastName());
-        Assertions.assertEquals("Los Angeles, California", lastPerson.getAddress());
+        Assertions.assertEquals("Allyn", lastPerson.getFirstName());
+        Assertions.assertEquals("Josh", lastPerson.getLastName());
+        Assertions.assertEquals("119 Declaration Lane", lastPerson.getAddress());
         Assertions.assertEquals("Female", lastPerson.getGender());
-        Assertions.assertTrue(lastPerson.getEnabled());
+        Assertions.assertFalse(lastPerson.getEnabled());
 
     }
 
