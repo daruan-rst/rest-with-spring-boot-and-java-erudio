@@ -6,6 +6,7 @@ import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.PersonVO;
 import br.com.eurdio.integrationtests.vo.TokenVO;
+import br.com.eurdio.integrationtests.vo.pagedModels.PagedModelPerson;
 import br.com.eurdio.integrationtests.vo.wrappers.WrapperPersonVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.builder.RequestSpecBuilder;
@@ -301,7 +302,7 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
     @Order(6)
     public void testFindAll() throws JsonProcessingException {
 
-        WrapperPersonVO wrapper = given()
+        PagedModelPerson wrapper = given()
                 .spec(specification)
                 .config(
                         RestAssuredConfig
@@ -320,11 +321,11 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
                 .statusCode(200)
                 .extract()
                 .body()
-                .as(WrapperPersonVO.class, objectMapper);
+                .as(PagedModelPerson.class, objectMapper);
 
         assertNotNull(wrapper);
 
-        var allPeople = wrapper.getEmbedded().getPersons();
+        var allPeople = wrapper.getContent();
 
         PersonVO lastPerson = allPeople.get(allPeople.size()-1);
 

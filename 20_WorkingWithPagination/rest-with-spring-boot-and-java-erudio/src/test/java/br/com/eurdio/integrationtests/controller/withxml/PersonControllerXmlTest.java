@@ -5,6 +5,7 @@ import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.PersonVO;
 import br.com.eurdio.integrationtests.vo.TokenVO;
+import br.com.eurdio.integrationtests.vo.pagedModels.PagedModelPerson;
 import br.com.eurdio.integrationtests.vo.wrappers.WrapperPersonVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -281,9 +282,9 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
         assertNotNull(content);
 
-        WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
+        PagedModelPerson wrapper = objectMapper.readValue(content, PagedModelPerson.class);
 
-        var allPeople = wrapper.getEmbedded().getPersons();
+        var allPeople = wrapper.getContent();
 
         PersonVO lastPerson = allPeople.get(allPeople.size()-1);
 
