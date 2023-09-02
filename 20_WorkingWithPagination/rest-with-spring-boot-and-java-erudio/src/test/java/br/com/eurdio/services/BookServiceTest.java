@@ -13,7 +13,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -36,6 +38,8 @@ class BookServiceTest {
     @Mock
     private BookRepository repository;
 
+
+
     @BeforeEach
     void setUp(){
      util = new MockBook();
@@ -44,8 +48,12 @@ class BookServiceTest {
 
     @Test
     void testFindAll() {
-        Mockito.when(repository.findAll()).thenReturn(util.mockBookList());
-        List<Book> listOfBooks = service.findAll();
+        Mockito.when(repository.findAll(Pageable.ofSize(10))).thenReturn(util.mockBookList());
+        PagedModel<EntityModel<Book>> pageOfBooks = service.findAll(Pageable.ofSize(10));
+        List<Book> listOfBooks = pageOfBooks.getContent()
+                .stream()
+                .map(EntityModel::getContent)
+                .toList();
         Assertions.assertEquals(5, listOfBooks.size());
         Book firstBook = listOfBooks.get(0);
         Assertions.assertEquals(1,firstBook.getId());

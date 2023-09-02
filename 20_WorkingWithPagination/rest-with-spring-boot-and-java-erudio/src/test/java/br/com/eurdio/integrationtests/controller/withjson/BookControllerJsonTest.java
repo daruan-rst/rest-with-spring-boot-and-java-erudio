@@ -5,8 +5,8 @@ import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.Book;
 import br.com.eurdio.integrationtests.vo.TokenVO;
+import br.com.eurdio.integrationtests.vo.wrappers.WrapperBook;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.builder.RequestSpecBuilder;
@@ -18,12 +18,8 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import static br.com.eurdio.configs.TestConfigs.CONTENT_TYPE_JSON;
@@ -214,6 +210,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         var content = given()
                 .spec(specification)
                 .contentType(CONTENT_TYPE_JSON)
+                .queryParams("page",0,"size",10,"direction","asc")
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .when()
                 .get()
@@ -225,8 +222,9 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 
         assertNotNull(content);
 
-        List<Book> allBook = objectMapper.readValue(content, new TypeReference<List<Book>>() {});
+        WrapperBook bookWrapper = objectMapper.readValue(content, WrapperBook.class);
 
+        List<Book> allBook = bookWrapper.getEmbedded().getBooks();
         Book lastBook = allBook.get(allBook.size()-1);
 
         Assertions.assertEquals(new BigDecimal("54.00"), lastBook.getPrice());
