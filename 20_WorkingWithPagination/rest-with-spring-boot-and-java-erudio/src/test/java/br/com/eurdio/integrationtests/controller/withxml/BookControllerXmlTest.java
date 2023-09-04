@@ -5,6 +5,7 @@ import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.Book;
 import br.com.eurdio.integrationtests.vo.TokenVO;
+import br.com.eurdio.integrationtests.vo.pagedModels.PagedModelBook;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -208,6 +209,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         var content = given()
                 .spec(specification)
                 .contentType(CONTENT_TYPE_XML)
+                .queryParams("page",0,"size",10,"direction","desc")
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .when()
                 .get()
@@ -219,8 +221,9 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 
         assertNotNull(content);
 
-        List<Book> allBook = objectMapper.readValue(content, new TypeReference<List<Book>>() {});
+        var wrapper = objectMapper.readValue(content, PagedModelBook.class);
 
+        List<Book> allBook = wrapper.getContent();
         Book lastBook = allBook.get(allBook.size()-1);
 
         Assertions.assertEquals(new BigDecimal("54.00"), lastBook.getPrice());

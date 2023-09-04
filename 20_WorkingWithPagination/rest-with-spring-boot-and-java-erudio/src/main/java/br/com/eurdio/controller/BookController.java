@@ -54,7 +54,7 @@ public class BookController {
         var sortDirection = sort.equalsIgnoreCase("DESC") ? Sort.Direction.DESC :
                 Sort.Direction.ASC;
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "authorName"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "author"));
 
         return ResponseEntity.ok(bookService.findAll(pageable));
     }

@@ -210,7 +210,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         var content = given()
                 .spec(specification)
                 .contentType(CONTENT_TYPE_JSON)
-                .queryParams("page",0,"size",10,"direction","asc")
+                .queryParams("page",0,"size",10,"direction","desc")
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .when()
                 .get()
@@ -227,9 +227,9 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         List<Book> allBook = bookWrapper.getEmbedded().getBooks();
         Book lastBook = allBook.get(allBook.size()-1);
 
-        Assertions.assertEquals(new BigDecimal("54.00"), lastBook.getPrice());
-        Assertions.assertEquals("Aguinaldo Aragon Fernandes e Vladimir Ferraz de Abreu", lastBook.getAuthor());
-        Assertions.assertEquals("Implantando a governança de TI", lastBook.getTitle());
+        Assertions.assertEquals(new BigDecimal("95.00"), lastBook.getPrice());
+        Assertions.assertEquals("Richard Hunter e George Westerman", lastBook.getAuthor());
+        Assertions.assertEquals("O verdadeiro valor de TI", lastBook.getTitle());
         Assertions.assertEquals(new Date("2017/11/07"), lastBook.getLaunchDate());
 
     }
