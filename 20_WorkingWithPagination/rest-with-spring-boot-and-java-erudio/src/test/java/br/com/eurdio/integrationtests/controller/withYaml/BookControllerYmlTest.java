@@ -6,6 +6,7 @@ import br.com.eurdio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.Book;
 import br.com.eurdio.integrationtests.vo.TokenVO;
+import br.com.eurdio.integrationtests.vo.pagedModels.PagedModelBook;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -219,7 +220,8 @@ public class BookControllerYmlTest extends AbstractIntegrationTest {
 
         var content = given()
                 .spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(CONTENT_TYPE_YML)
+                .accept(CONTENT_TYPE_YML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .when()
                 .get()
@@ -227,15 +229,17 @@ public class BookControllerYmlTest extends AbstractIntegrationTest {
                 .statusCode(200)
                 .extract()
                 .body()
-                .as(Book[].class, objectMapper);
+                .as(PagedModelBook.class, objectMapper);
 
         assertNotNull(content);
 
-        Book lastBook = content[content.length-1];
+        List<Book> allBooks = content.getContent();
 
-        Assertions.assertEquals(new BigDecimal("54.00"), lastBook.getPrice());
-        Assertions.assertEquals("Aguinaldo Aragon Fernandes e Vladimir Ferraz de Abreu", lastBook.getAuthor());
-        Assertions.assertEquals("Implantando a governança de TI", lastBook.getTitle());
+        Book lastBook = allBooks.get(allBooks.size() -1);
+
+        Assertions.assertEquals(new BigDecimal("95.00"), lastBook.getPrice());
+        Assertions.assertEquals("Richard Hunter e George Westerman", lastBook.getAuthor());
+        Assertions.assertEquals("O verdadeiro valor de TI", lastBook.getTitle());
         Assertions.assertEquals(new Date("2017/11/07"), lastBook.getLaunchDate());
 
     }

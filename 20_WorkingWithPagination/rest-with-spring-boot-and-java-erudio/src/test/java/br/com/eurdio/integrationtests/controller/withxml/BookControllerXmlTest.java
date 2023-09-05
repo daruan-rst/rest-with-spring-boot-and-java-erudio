@@ -231,9 +231,9 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         List<Book> allBook = wrapper.getContent();
         Book lastBook = allBook.get(allBook.size()-1);
 
-        Assertions.assertEquals(new BigDecimal("54.00"), lastBook.getPrice());
-        Assertions.assertEquals("Aguinaldo Aragon Fernandes e Vladimir Ferraz de Abreu", lastBook.getAuthor());
-        Assertions.assertEquals("Implantando a governança de TI", lastBook.getTitle());
+        Assertions.assertEquals(new BigDecimal("95.00"), lastBook.getPrice());
+        Assertions.assertEquals("Richard Hunter e George Westerman", lastBook.getAuthor());
+        Assertions.assertEquals("O verdadeiro valor de TI", lastBook.getTitle());
         Assertions.assertEquals(new Date("2017/11/07"), lastBook.getLaunchDate());
     }
 
