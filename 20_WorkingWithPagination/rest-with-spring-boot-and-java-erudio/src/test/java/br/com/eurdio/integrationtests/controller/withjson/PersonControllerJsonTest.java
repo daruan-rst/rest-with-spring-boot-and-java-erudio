@@ -312,6 +312,40 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
     }
 
+    @Test
+    @Order(8)
+    public void testFindByName() throws JsonProcessingException {
+
+        var content = given()
+                .spec(specification)
+                .contentType(CONTENT_TYPE_JSON)
+                .accept(CONTENT_TYPE_JSON)
+                .pathParam("firstName","ayr")
+                .queryParams("page",0,"size",6,"direction","asc")
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .when()
+                .get("findPersonByName/{firstName}")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        assertNotNull(content);
+
+        WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
+
+        var peopleList = wrapper.getEmbedded().getPersons();
+        PersonVO thisPerson = peopleList.get(0);
+
+        Assertions.assertEquals("Ayrton", thisPerson.getFirstName());
+        Assertions.assertEquals("Senna", thisPerson.getLastName());
+        Assertions.assertEquals("São Paulo", thisPerson.getAddress());
+        Assertions.assertEquals("Male", thisPerson.getGender());
+        Assertions.assertTrue(thisPerson.getEnabled());
+
+    }
+
 
 
 
