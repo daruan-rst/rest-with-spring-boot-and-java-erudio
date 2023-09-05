@@ -12,6 +12,7 @@ import java.util.Objects;
 @XmlRootElement
 public class Book extends RepresentationModel<Book> implements Serializable {
 
+    private static final Long serialVersionUID =  1L;
 
     private Long id;
 
@@ -19,9 +20,7 @@ public class Book extends RepresentationModel<Book> implements Serializable {
 
     private Date launchDate;
 
-
     private BigDecimal price;
-
 
     private String title;
 

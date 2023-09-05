@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -34,13 +35,13 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 
     private static RequestSpecification specification;
 
-    private static ObjectMapper objectMapper;
+    private static XmlMapper objectMapper;
 
     private static Book book;
 
     @BeforeAll
     public static void setUp(){
-       objectMapper = new ObjectMapper();
+       objectMapper = new XmlMapper();
        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
        objectMapper.setTimeZone(TimeZone.getDefault());
        book = new Book();
@@ -83,6 +84,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         var content = given()
                         .spec(specification)
                         .contentType(TestConfigs.CONTENT_TYPE_XML)
+                        .accept(CONTENT_TYPE_XML)
                         .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                         .body(book)
                         .when()
@@ -118,6 +120,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         var content = given()
                 .spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_XML)
+                .accept(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .pathParam("id", book.getId())
                 .when()
@@ -155,6 +158,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         var content = given()
                 .spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_XML)
+                .accept(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .pathParam("id", book.getId())
                 .body(book)
@@ -210,6 +214,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
                 .spec(specification)
                 .contentType(CONTENT_TYPE_XML)
                 .queryParams("page",0,"size",10,"direction","desc")
+                .accept(CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
                 .when()
                 .get()
@@ -221,7 +226,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 
         assertNotNull(content);
 
-        var wrapper = objectMapper.readValue(content, PagedModelBook.class);
+        PagedModelBook wrapper = objectMapper.readValue(content, PagedModelBook.class);
 
         List<Book> allBook = wrapper.getContent();
         Book lastBook = allBook.get(allBook.size()-1);
@@ -230,7 +235,6 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         Assertions.assertEquals("Aguinaldo Aragon Fernandes e Vladimir Ferraz de Abreu", lastBook.getAuthor());
         Assertions.assertEquals("Implantando a governança de TI", lastBook.getTitle());
         Assertions.assertEquals(new Date("2017/11/07"), lastBook.getLaunchDate());
-
     }
 
     @Test

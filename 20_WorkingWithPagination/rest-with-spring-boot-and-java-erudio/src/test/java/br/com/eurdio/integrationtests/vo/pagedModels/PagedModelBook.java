@@ -10,7 +10,7 @@ import java.util.Objects;
 @XmlRootElement
 public class PagedModelBook {
 
-    @XmlElement(name = "_embedded")
+    @XmlElement(name = "content")
     private List<Book> content;
 
     public PagedModelBook(List<Book> content) {
