@@ -367,12 +367,54 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
 
     }
 
+    @Test
+    @Order(8)
+    public void testFindByName() throws JsonProcessingException {
+
+        PagedModelPerson wrapper = given()
+                .spec(specification)
+                .config(
+                        RestAssuredConfig
+                                .config()
+                                .encoderConfig(EncoderConfig.encoderConfig()
+                                        .encodeContentTypeAs(
+                                                TestConfigs.CONTENT_TYPE_YML,
+                                                ContentType.TEXT)))
+                .contentType(CONTENT_TYPE_YML)
+                .pathParam("firstName", "Ayr")
+                .queryParams("page",0,"size",6,"direction","desc")
+                .accept(CONTENT_TYPE_YML)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .when()
+                .get("findPersonByName/{firstName}")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(PagedModelPerson.class, objectMapper);
+
+        assertNotNull(wrapper);
+
+        var peopleList = wrapper.getContent();
+
+        PersonVO thisPerson = peopleList.get(0);
+
+        Assertions.assertEquals("Ayrton", thisPerson.getFirstName());
+        Assertions.assertEquals("Senna", thisPerson.getLastName());
+        Assertions.assertEquals("São Paulo", thisPerson.getAddress());
+        Assertions.assertEquals("Male", thisPerson.getGender());
+        Assertions.assertTrue(thisPerson.getEnabled());
+
+
+    }
+
 
     private void mockPerson() {
         person.setFirstName("Richard");
         person.setLastName("Stallman");
         person.setAddress("New York City, New York, US");
         person.setGender("Male");
+        person.setEnabled(true);
     }
 
 }
