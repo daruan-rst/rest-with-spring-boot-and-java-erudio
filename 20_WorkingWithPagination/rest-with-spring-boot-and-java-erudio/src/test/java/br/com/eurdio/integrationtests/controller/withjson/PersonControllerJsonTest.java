@@ -305,8 +305,6 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
                 .body()
                 .asString();
 
-
-
     }
 
     @Test
@@ -340,6 +338,39 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         Assertions.assertEquals("São Paulo", thisPerson.getAddress());
         Assertions.assertEquals("Male", thisPerson.getGender());
         Assertions.assertTrue(thisPerson.getEnabled());
+
+    }
+
+    @Test
+    @Order(9)
+    public void testHATEOAS() throws JsonProcessingException {
+
+        var content = given()
+                .spec(specification)
+                .contentType(CONTENT_TYPE_JSON)
+                .queryParams("page",3,"size",10,"direction","asc")
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        assertNotNull(content);
+
+        assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/person/v1/842\"}}}"));
+        assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/person/v1/681\"}}}"));
+        assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/person/v1/418\"}}}"));
+
+        assertTrue(content.contains("{\"first\":{\"href\":\"http://localhost:8888/api/person/v1?direction=asc&page=0&size=10&sort=firstName,asc\"}"));
+        assertTrue(content.contains("\"prev\":{\"href\":\"http://localhost:8888/api/person/v1?direction=asc&page=2&size=10&sort=firstName,asc\"}"));
+        assertTrue(content.contains("\"self\":{\"href\":\"http://localhost:8888/api/person/v1?page=3&size=10&direction=asc\"}"));
+        assertTrue(content.contains("\"next\":{\"href\":\"http://localhost:8888/api/person/v1?direction=asc&page=4&size=10&sort=firstName,asc\"}"));
+        assertTrue(content.contains("\"last\":{\"href\":\"http://localhost:8888/api/person/v1?direction=asc&page=101&size=10&sort=firstName,asc\"}}"));
+
+        assertTrue(content.contains("\"page\":{\"size\":10,\"totalElements\":1011,\"totalPages\":102,\"number\":3}}"));
 
     }
 
