@@ -360,6 +360,40 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
     }
 
+    @Test
+    @Order(9)
+    public void testHATEOAS() throws JsonProcessingException {
+
+        var content = given()
+                .spec(specification)
+                .contentType(CONTENT_TYPE_XML)
+                .accept(CONTENT_TYPE_XML)
+                .queryParams("page",3,"size",10,"direction","asc")
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        assertNotNull(content);
+
+        assertTrue(content.contains("<links><rel>self</rel><href>http://localhost:8888/api/person/v1/842</href></links>"));
+        assertTrue(content.contains("<links><rel>self</rel><href>http://localhost:8888/api/person/v1/681</href></links>"));
+        assertTrue(content.contains("<links><rel>self</rel><href>http://localhost:8888/api/person/v1/418</href></links>"));
+
+        assertTrue(content.contains("<links><rel>first</rel><href>http://localhost:8888/api/person/v1?direction=asc&amp;page=0&amp;size=10&amp;sort=firstName,asc</href></links>"));
+        assertTrue(content.contains("<links><rel>prev</rel><href>http://localhost:8888/api/person/v1?direction=asc&amp;page=2&amp;size=10&amp;sort=firstName,asc</href></links>"));
+        assertTrue(content.contains("<links><rel>self</rel><href>http://localhost:8888/api/person/v1/681</href></links>"));
+        assertTrue(content.contains("<links><rel>next</rel><href>http://localhost:8888/api/person/v1?direction=asc&amp;page=4&amp;size=10&amp;sort=firstName,asc</href></links>"));
+        assertTrue(content.contains("<links><rel>last</rel><href>http://localhost:8888/api/person/v1?direction=asc&amp;page=101&amp;size=10&amp;sort=firstName,asc</href></links>"));
+
+        assertTrue(content.contains("<page><size>10</size><totalElements>1011</totalElements><totalPages>102</totalPages><number>3</number></page>"));
+
+    }
+
 
 
 

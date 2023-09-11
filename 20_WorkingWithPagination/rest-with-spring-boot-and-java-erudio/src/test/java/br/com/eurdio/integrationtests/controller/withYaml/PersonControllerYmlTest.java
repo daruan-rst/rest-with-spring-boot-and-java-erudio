@@ -7,7 +7,6 @@ import br.com.eurdio.integrationtests.vo.AccountCredentialsVO;
 import br.com.eurdio.integrationtests.vo.PersonVO;
 import br.com.eurdio.integrationtests.vo.TokenVO;
 import br.com.eurdio.integrationtests.vo.pagedModels.PagedModelPerson;
-import br.com.eurdio.integrationtests.vo.wrappers.WrapperPersonVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;
@@ -404,7 +403,48 @@ public class PersonControllerYmlTest extends AbstractIntegrationTest {
         Assertions.assertEquals("São Paulo", thisPerson.getAddress());
         Assertions.assertEquals("Male", thisPerson.getGender());
         Assertions.assertTrue(thisPerson.getEnabled());
+    }
 
+    @Test
+    @Order(9)
+    public void testHATEOAS() throws JsonProcessingException {
+
+        var unthreatedContent = given()
+                .spec(specification)
+                .config(
+                        RestAssuredConfig
+                                .config()
+                                .encoderConfig(EncoderConfig.encoderConfig()
+                                        .encodeContentTypeAs(
+                                                TestConfigs.CONTENT_TYPE_YML,
+                                                ContentType.TEXT)))
+                .contentType(CONTENT_TYPE_YML)
+                .queryParams("page",3,"size",10,"direction","asc")
+                .accept(CONTENT_TYPE_YML)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        assertNotNull(unthreatedContent);
+
+        var content = unthreatedContent.replace("\n", "").replace("\r", "");
+
+        assertTrue(content.contains("  - rel: \"self\"    href: \"http://localhost:8888/api/person/v1/842\""));
+        assertTrue(content.contains("  - rel: \"self\"    href: \"http://localhost:8888/api/person/v1/681\""));
+        assertTrue(content.contains("  - rel: \"self\"    href: \"http://localhost:8888/api/person/v1/418\""));
+
+        assertTrue(content.contains("rel: \"first\"  href: \"http://localhost:8888/api/person/v1?direction=asc&page=0&size=10&sort=firstName,asc\""));
+        assertTrue(content.contains("rel: \"prev\"  href: \"http://localhost:8888/api/person/v1?direction=asc&page=2&size=10&sort=firstName,asc\""));
+        assertTrue(content.contains("rel: \"self\"  href: \"http://localhost:8888/api/person/v1?page=3&size=10&direction=asc\""));
+        assertTrue(content.contains("rel: \"next\"  href: \"http://localhost:8888/api/person/v1?direction=asc&page=4&size=10&sort=firstName,asc\""));
+        assertTrue(content.contains("rel: \"last\"  href: \"http://localhost:8888/api/person/v1?direction=asc&page=101&size=10&sort=firstName,asc\""));
+
+        assertTrue(content.contains("page:  size: 10  totalElements: 1011  totalPages: 102  number: 3"));
 
     }
 
