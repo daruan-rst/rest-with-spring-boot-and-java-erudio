@@ -240,7 +240,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 
         RequestSpecification specification = new RequestSpecBuilder()
                 .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "")
-                .setBasePath("api/person/v1")
+                .setBasePath("api/book/v1")
                 .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
@@ -257,6 +257,38 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                 .extract()
                 .body()
                 .asString();
+
+    }
+
+    @Test
+    @Order(9)
+    public void testHATEOAS() throws JsonProcessingException {
+
+        var content = given()
+                .spec(specification)
+                .contentType(CONTENT_TYPE_JSON)
+                .queryParams("page",0,"size",5,"direction","asc")
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        assertNotNull(content);
+
+        assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/book/v1/7\"}}}"));
+        assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/book/v1/8\"}}}"));
+        assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/book/v1/4\"}}}"));
+
+        assertTrue(content.contains("{\"first\":{\"href\":\"http://localhost:8888/api/book/v1?direct=author%3A%20ASC&page=0&size=5&sort=author,asc\"}"));
+        assertTrue(content.contains("\"self\":{\"href\":\"http://localhost:8888/api/book/v1?page=0&size=5&direct=author%3A%20ASC\"}"));
+        assertTrue(content.contains("\"next\":{\"href\":\"http://localhost:8888/api/book/v1?direct=author%3A%20ASC&page=1&size=5&sort=author,asc\"}"));
+        assertTrue(content.contains("\"last\":{\"href\":\"http://localhost:8888/api/book/v1?direct=author%3A%20ASC&page=2&size=5&sort=author,asc\"}}"));
+
+        assertTrue(content.contains("\"page\":{\"size\":5,\"totalElements\":14,\"totalPages\":3,\"number\":0}}"));
 
     }
 
