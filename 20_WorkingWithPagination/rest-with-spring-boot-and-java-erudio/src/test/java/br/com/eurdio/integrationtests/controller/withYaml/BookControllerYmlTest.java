@@ -270,6 +270,41 @@ public class BookControllerYmlTest extends AbstractIntegrationTest {
 
     }
 
+    @Test
+    @Order(7)
+    public void testHATEOAS() throws JsonProcessingException {
+
+        var unthreatedContent = given()
+                .spec(specification)
+                .contentType(CONTENT_TYPE_YML)
+                .accept(CONTENT_TYPE_YML)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, ORIGIN_ERUDIO)
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        assertNotNull(unthreatedContent);
+
+        var content = unthreatedContent.replace("\n", "").replace("\r", "");
+
+        assertTrue(content.contains("  - rel: \"self\"    href: \"http://localhost:8888/api/book/v1/7\""));
+        assertTrue(content.contains("  - rel: \"self\"    href: \"http://localhost:8888/api/book/v1/8\""));
+        assertTrue(content.contains("  - rel: \"self\"    href: \"http://localhost:8888/api/book/v1/4\""));
+
+        assertTrue(content.contains("rel: \"first\"  href: \"http://localhost:8888/api/book/v1?direct=author%3A%20ASC&page=0&size=10&sort=author,asc\""));
+        assertTrue(content.contains("rel: \"self\"  href: \"http://localhost:8888/api/book/v1?page=0&size=10&direct=author%3A%20ASC\""));
+        assertTrue(content.contains("rel: \"next\"  href: \"http://localhost:8888/api/book/v1?direct=author%3A%20ASC&page=1&size=10&sort=author,asc\""));
+        assertTrue(content.contains("rel: \"last\"  href: \"http://localhost:8888/api/book/v1?direct=author%3A%20ASC&page=1&size=10&sort=author,asc\""));
+
+        assertTrue(content.contains("page:  size: 10  totalElements: 14  totalPages: 2  number: 0"));
+
+
+    }
+
 
     private void mockBook() {
         book.setId(5);
