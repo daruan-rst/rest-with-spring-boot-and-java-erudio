@@ -15,6 +15,7 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static br.com.eurdio.configs.TestConfigs.ORIGIN_ERUDIO;
 import static br.com.eurdio.configs.TestConfigs.ORIGIN_SEMERU;
@@ -23,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext
 public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
 
     private static RequestSpecification specification;

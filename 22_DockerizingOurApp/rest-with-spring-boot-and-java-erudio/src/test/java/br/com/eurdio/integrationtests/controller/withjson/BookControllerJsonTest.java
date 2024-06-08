@@ -16,6 +16,7 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext
 public class BookControllerJsonTest extends AbstractIntegrationTest {
 
     private static RequestSpecification specification;
@@ -95,7 +97,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                                     .asString();
 
             Book createdBook = objectMapper.readValue(content, Book.class);
-//            book = createdBook;
+            book = createdBook;
 
             assertNotNull(createdBook);
             assertTrue(createdBook.getId() > 0);
