@@ -28,11 +28,11 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
           
     - name: Build Application JAR
-      working-directory: ./22_DockerizingOurApp/rest-with-spring-boot-and-java-erudio
+      working-directory: ./23_DeployingOurAppToAWS/rest-with-spring-boot-and-java-erudio
       run: mvn clean package -DskipTests 
       
     - name: Docker compose build
-      working-directory: ./22_DockerizingOurApp
+      working-directory: ./23_DeployingOurAppToAWS
       run: docker compose build
 
     - name: Push to Docker Hub Container Registry
